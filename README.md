@@ -1,16 +1,15 @@
-### Hi there 👋
+### Allon Mureinik
 
-<!--
-**mureinik/mureinik** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+*A software engineering manager who likes nothing more than when his employees prove him wrong.*
 
-Here are some ideas to get you started:
+## Who am I?
+A Senior Manager at [Synopsys SIG](https://www.synopsys.com/software-integrity.html). <br/>
+Passionate about open source, automating code quality and team building.
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+## What else have I been up to?
+- [GitHub](https://github.com/mureinik)
+- [Twitter](https://twitter.com/mureinik)
+- [LinkedIn](https://www.linkedin.com/in/mureinik/)
+- [SlideShare](https://www.slideshare.net/AllonMureinik)
+- [Recorded Talks](https://www.youtube.com/playlist?list=PL1nvafMwjHaDkO-1yyJ4PlJiutiMQyztA)
+- [Stack Overflow](https://stackoverflow.com/users/2422776/mureinik)
