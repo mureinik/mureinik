@@ -3,7 +3,7 @@
 *A software engineering manager who likes nothing more than when his employees prove him wrong.*
 
 ## Who am I?
-A Senior Manager at [Synopsys SIG](https://www.synopsys.com/software-integrity.html). <br/>
+A Senior Manager at [Synopsys SIG](https://www.synopsys.com/software-integrity.html), managing the R&D efforts for the [Seeker](https://www.synopsys.com/software-integrity/security-testing/interactive-application-security-testing.html) (IAST) Agents. <br/>
 Passionate about open source, automating code quality and team building.
 
 ## What else have I been up to?
