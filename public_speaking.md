@@ -2,6 +2,8 @@
 
 Talks are listed in reverse chronological order. In case a talk was given in several conferences, only the most relevant one will be linked to it's recording/slides.
 
+- **[TechStrongCon 2021](https://www.mediaopsevents.com/techstrongcon)** (14/07/2021 - 15/07/2021)
+    - **Abracadabra, now everyone's a remotee!**
 - **[DevConf.CZ 2021](https://devconfcz2021.sched.com/)** (18/02/2021 - 20/02/2021)
     - **Zoom Out!**, Lightening Talk ([slides](https://www.slideshare.net/AllonMureinik/zoom-out-246027668/AllonMureinik/zoom-out-246027668), [recording](https://www.youtube.com/watch?v=peZmUf8RUw0))
 - **[FOSDEM 2021](https://fosdem.org/2021/)** (06/02/2021 - 07/02/2021)
