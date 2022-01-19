@@ -2,7 +2,7 @@
 
 Talks are listed in reverse chronological order. In case a talk was given in several conferences, only the most relevant one will be linked to it's recording/slides.
 
-- **[DeveloperWeek Austin](https://www.developerweek.com/Austin/)** (17/11/2021 - 18/11/2021)
+- **[DeveloperWeek Austin 2021](https://www.developerweek.com/Austin/)** (17/11/2021 - 18/11/2021)
     - **[What I Wish I Knew About Security When I Started Programming](https://emamo.com/event/developerweek-austin-2021/s/what-i-wish-i-knew-about-security-when-i-started-programming-oz9rBW)**
 - **[TechStrongCon 2021](https://www.mediaopsevents.com/techstrongcon)** (14/07/2021 - 15/07/2021)
     - **Abracadabra, now everyone's a remotee!** ([recording](https://vimeo.com/digitalanarchist/download/571734205/18152352d3))
