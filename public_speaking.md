@@ -13,6 +13,10 @@ Talks are listed in reverse chronological order. In case a talk was given in sev
     - **[This DoS goes loop-di-loop - Preventing DoS attacks in your Node.js application](https://fosdem.org/2021/schedule/event/dos/)**, JavaScript Developer Room ([slides](https://fosdem.org/2021/schedule/event/dos/attachments/audio/4548/export/events/attachments/dos/audio/4548/This_dos_goes_loop_di_loop_slides.pdf), [recording](https://video.fosdem.org/2021/D.javascript/dos.webm))
 - **[DevConf.US 2020](https://devconfus2020.sched.com/)** (24/09/2020 - 25/09/2020)
     - **[OWASP Top-10 - quickstart your security awareness](https://devconfus2020.sched.com/event/dyLC/owasp-top-10-quickstart-your-security-awareness)**, Privacy and Data Governance Track ([slides](https://www.slideshare.net/AllonMureinik/devconfus-2020-owasp-top-10-allon-mureinik), [recording](https://www.youtube.com/watch?v=6Z5hlgZQQt0))
+- **BrightTALK Webinar** (23/06/2020)
+    - **[The DoS Goes Loop-di-loop](https://www.brighttalk.com/webcast/13983/400475)**
+- **BrightTALK Webinar** (11/02/2020)
+    - **[How Open Source Made Me a Better Manager](https://www.brighttalk.com/webcast/13983/376375)**
 - **[FOSDEM 2020](https://fosdem.org/2020/)** (01/02/2020 - 02/02/2020)
     - **[Cognitive biases, blindspots and inclusion](https://archive.fosdem.org/2020/schedule/event/cognitivebias/)**, Community Developer Room ([slides](https://archive.fosdem.org/2020/schedule/event/cognitivebias/attachments/slides/3693/export/events/attachments/cognitivebias/slides/3693/cognitive_bias_fosdem2020.pdf), [recording](https://video.fosdem.org/2020/UB5.230/cognitivebias.mp4]))
 - **[DevConf.CZ 2020](https://devconfcz2020a.sched.com/)** (24/01/2020 - 26/01/2020)
