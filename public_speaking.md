@@ -2,6 +2,9 @@
 
 Talks are listed in reverse chronological order. In case a talk was given in several conferences, only the most relevant one will be linked to it's recording/slides.
 
+- **[DevConf.CZ 2022](https://devconfcz2022.sched.com/)** (28/01/2022 - 29/01/2022)
+    - **[What I always wish I knew about security](https://devconfcz2022.sched.com/event/siEy/what-i-always-wish-i-knew-about-security)**, Modern Software Development track ([slides](https://static.sched.com/hosted_files/devconfcz2022/2d/What%20I%20wish%20I%20knew%20about%20security.pdf), [recording](https://www.youtube.com/watch?v=peZmUf8RUw0))
+    - **[Somebody set up us the bomb](https://devconfcz2022.sched.com/event/vvvF/lightning-talks)**, Lighting Talk ([slides](https://static.sched.com/hosted_files/devconfcz2022/14/Somebody%20set%20up%20us%20the%20bomb%20-%20Allon%20Mureinik%20DevConfCZ%202022.pdf), [recording](https://youtu.be/WJkwJBrhTfk))
 - **[DeveloperWeek Austin 2021](https://hopin.com/events/developerweek-austin-2021)** (17/11/2021 - 18/11/2021)
     - **[What I Wish I Knew About Security When I Started Programming](https://emamo.com/event/developerweek-austin-2021/s/what-i-wish-i-knew-about-security-when-i-started-programming-oz9rBW)**
 - **[TechStrongCon 2021](https://www.mediaopsevents.com/techstrongcon)** (14/07/2021 - 15/07/2021)
