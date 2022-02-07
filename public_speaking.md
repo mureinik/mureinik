@@ -1,6 +1,6 @@
 ### Public Speaking
 
-Talks are listed in reverse chronological order. In case a talk was given in several conferences, only the most relevant one will be linked to it's recording/slides.
+Talks are listed in reverse chronological order. In case a talk was given in several conferences, only the most relevant one will be linked to the recording/slides.
 
 - **[FOSDEM 2022](https://fosdem.org/2022/)** (05/02/2022 - 06/02/2022)
     - **[What I wish I knew about security when I started programming](https://fosdem.org/2022/schedule/event/security_wishes/)**, Security Main Track ([slides](https://fosdem.org/2022/schedule/event/security_wishes/attachments/slides/4888/export/events/attachments/security_wishes/slides/4888/What_I_wish_I_knew_about_security.pdf), [recording](https://video.fosdem.org/2022/M.security/security_wishes.webm))
