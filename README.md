@@ -13,4 +13,5 @@ Passionate about open source, automating code quality and team building.
 - [SlideShare](https://www.slideshare.net/AllonMureinik)
 - [Public Speaking](./public_speaking.md)
 - [Recorded Talks](https://www.youtube.com/playlist?list=PL1nvafMwjHaDkO-1yyJ4PlJiutiMQyztA)
+- [Articles](./articles.md)
 - [Stack Overflow](https://stackoverflow.com/users/2422776/mureinik)
