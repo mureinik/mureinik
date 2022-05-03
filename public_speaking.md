@@ -2,6 +2,8 @@
 
 Talks are listed in reverse chronological order. In case a talk was given in several conferences, only the most relevant one will be linked to the recording/slides.
 
+- **[SciFiDevCon 2022](https://training.majorguidancesolutions.com/courses/scifidevcon-presents-31-days-of-may-the-fourth-be-with-you)** (01/05/2022 - 23/05/2022)
+    - **[We are the Borg, you will be interviewed](https://training.majorguidancesolutions.com/courses/scifidevcon-presents-31-days-of-may-the-fourth-be-with-you/contents/61d080766ff92)** ([slides](https://www.slideshare.net/AllonMureinik/we-are-the-borg-you-will-be-interviewed/), [recording](https://youtu.be/kiSVdnKy7fM), [code samples](https://github.com/mureinik/we-are-the-borg))
 - **[FOSDEM 2022](https://fosdem.org/2022/)** (05/02/2022 - 06/02/2022)
     - **[What I wish I knew about security when I started programming](https://fosdem.org/2022/schedule/event/security_wishes/)**, Security Main Track ([slides](https://fosdem.org/2022/schedule/event/security_wishes/attachments/slides/4888/export/events/attachments/security_wishes/slides/4888/What_I_wish_I_knew_about_security.pdf), [recording](https://video.fosdem.org/2022/M.security/security_wishes.webm))
     - **[Somebody set up us the bomb - Expansion attacks in Node.js](https://fosdem.org/2022/schedule/event/somebody_set_up_us_the_bomb/)**, JavaScript Developer Room ([slides](https://fosdem.org/2022/schedule/event/somebody_set_up_us_the_bomb/attachments/slides/4868/export/events/attachments/somebody_set_up_us_the_bomb/slides/4868/Somebody_set_up_us_the_bomb_Allon_Mureinik_FOSDEM_2022.pdf), [recording](https://video.fosdem.org/2022/D.javascript/somebody_set_up_us_the_bomb.webm))
