@@ -2,6 +2,8 @@
 
 Talks are listed in reverse chronological order. In case a talk was given in several conferences, only the most relevant one will be linked to the recording/slides.
 
+- **[Doing Business in Israel (DBI) MBA Program](https://en-coller.tau.ac.il/the-programs/dbi)** (12/02/2023)
+    - **A Startup-Nation Perspective on Cyber Security**
 - **BrightTALK Webinar** (09/06/2022)
     - **[What I Wish I Knew About Security When I Started Programming](https://www.brighttalk.com/webcast/13983/541479)**
 - **[SciFiDevCon 2022](https://training.majorguidancesolutions.com/courses/scifidevcon-presents-31-days-of-may-the-fourth-be-with-you)** (01/05/2022 - 23/05/2022)
