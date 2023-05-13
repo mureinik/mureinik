@@ -6,8 +6,8 @@ Talks are listed in reverse chronological order. In case a talk was given in sev
     - **A Startup-Nation Perspective on Cyber Security**
 - **BrightTALK Webinar** (09/06/2022)
     - **[What I Wish I Knew About Security When I Started Programming](https://www.brighttalk.com/webcast/13983/541479)**
-- **[SciFiDevCon 2022](https://training.majorguidancesolutions.com/courses/scifidevcon-presents-31-days-of-may-the-fourth-be-with-you)** (01/05/2022 - 23/05/2022)
-    - **[We are the Borg, you will be interviewed](https://training.majorguidancesolutions.com/courses/scifidevcon-presents-31-days-of-may-the-fourth-be-with-you/contents/61d080766ff92)** ([slides](https://www.slideshare.net/AllonMureinik/we-are-the-borg-you-will-be-interviewed/), [recording](https://youtu.be/kiSVdnKy7fM), [code samples](https://github.com/mureinik/we-are-the-borg))
+- **[SciFiDevCon 2022](https://www.scifidevcon.com/courses/scifidevcon-presents-31-days-of-may-the-fourth-be-with-you-2022)** (01/05/2022 - 23/05/2022)
+    - **[We are the Borg, you will be interviewed](https://www.scifidevcon.com/courses/scifidevcon-presents-31-days-of-may-the-fourth-be-with-you-2022/contents/63dd5e802a2dc)** ([slides](https://www.slideshare.net/AllonMureinik/we-are-the-borg-you-will-be-interviewed/), [recording](https://youtu.be/kiSVdnKy7fM), [code samples](https://github.com/mureinik/we-are-the-borg))
 - **[Doing Business in Israel (DBI) MBA Program](https://en-coller.tau.ac.il/the-programs/dbi)** (13/02/2022)
     - **A Startup-Nation Perspective on Cyber Security**
 - **[FOSDEM 2022](https://fosdem.org/2022/)** (05/02/2022 - 06/02/2022)
