@@ -9,4 +9,4 @@ Articles are listed in reverse chronological order.
 
 #### Quoted and referenced
 - **[Developers still struggling with security issues during code reviews, study finds](https://portswigger.net/daily-swig/developers-still-struggling-with-security-issues-during-code-reviews-study-finds)** by Ben Dickson, The Daily Swig, 18/08/2022
-- **[Interview at Speaker's Corner](https://mentorifi.eventible.com/speakers-corner-featuring-allon-mureinik-senior-manager-at-synopsys-inc/)**, 03/02/2022
+- **[Interview at Speaker's Corner](https://eventible.com/learning/speakers-corner-featuring-allon-mureinik-senior-manager-at-synopsys-inc)**, 03/02/2022
