@@ -2,6 +2,8 @@
 
 Talks are listed in reverse chronological order. In case a talk was given in several conferences, only the most relevant one will be linked to the recording/slides.
 
+- **[PancakesCon 5 – Full Stack Hack](https://pancakescon.com/2024-conference-information/)** (24/03/2024)
+  - **Default to Async - Prevent DoS attacks on your app and your day** ([slides](https://www.slideshare.net/slideshow/default-to-async-prevent-dos-attacks-on-your-app-and-your-day/266945946))
 - **[SciFiDevCon 2023](https://www.scifidevcon.com/courses/2023-may-the-fourth-event)** (01/05/2023 - 31/05/2023)
   - **[What an episode of Rick and Morty taught me about (accidental) toxicity](https://www.scifidevcon.com/courses/2023-may-the-fourth-event/contents/6445c71664185)** ([slides](https://www.slideshare.net/AllonMureinik/what-an-episode-of-rick-and-morty-taught-me-about-accidental-toxicity), [recording](https://youtu.be/yp_sspeVrS4))
 - **[Doing Business in Israel (DBI) MBA Program](https://en-coller.tau.ac.il/the-programs/dbi)** (12/02/2023)
