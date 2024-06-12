@@ -71,3 +71,5 @@ Talks are listed in reverse chronological order. In case a talk was given in sev
     - **Retro Testing** (Hebrew) ([slides](https://www.slideshare.net/AllonMureinik/dev-con-retro-testing))    
 - **[August Penguin 2013](http://ap.hamakor.org.il/2013/)** (02/08/2013)
     - **Java Unit Testing 101** (Hebrew) ([slides](http://ap.hamakor.org.il/2013/slides/JU.svg), [recording](https://www.youtube.com/watch?v=XmFk_x66T5Q))
+- **[Open Storage Meetup](https://www.meetup.com/open-source-israel/events/115553302)** (06/05/2013)
+    - **Live Storage Migration in oVirt** ([slides](https://www.slideshare.net/slideshow/live-storage-migration-open-meetup/30717220))
