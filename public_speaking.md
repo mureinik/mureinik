@@ -2,6 +2,8 @@
 
 Talks are listed in reverse chronological order. In case a talk was given in several conferences, only the most relevant one will be linked to the recording/slides.
 
+- **[Conf42 JavaScript 2024](https://www.conf42.com/js2024)** (31/10/2024)
+  - **[This DoS goes loop-di-loop - preventing DoS attacks in your Node.js application](https://www.conf42.com/JavaScript_2024_Allon_Mureinik_4_dosattacks_nodejs_prevention)** ([recording](https://www.youtube.com/watch?v=ICwdGUjpV-o))
 - **[SciFiDevCon 2024](https://www.scifidevcon.com/courses/2024-scifidevcon-may-the-fourth-be-with-you-this-is-the-may)** (01/05/2024 - 23/05/2024)
   - **[Injustice - Developers Among Us](https://www.scifidevcon.com/courses/2024-scifidevcon-may-the-fourth-be-with-you-this-is-the-may/contents/662b13ce142bd)** ([slides](https://www.slideshare.net/slideshow/injustice-developers-among-us-scifidevcon-2024/267568160), [recording](https://youtu.be/Z_Csxyc2xk0))
 - **[PancakesCon 5 – Full Stack Hack](https://pancakescon.com/2024-conference-information/)** (24/03/2024)
