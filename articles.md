@@ -8,6 +8,7 @@ Articles are listed in reverse chronological order.
 - **[The helpful stranger and meaning of open source](https://opensource.com/life/14/12/the-meaning-of-open-source)**, Opensource.com, 19/12/2014
 
 #### Quoted and referenced
+- **[Compromise of Popular Tool Leads to Supply Chain Attack on Over 23,000 GitHub Repositories](https://www.cpomagazine.com/cyber-security/compromise-of-popular-tool-leads-to-supply-chain-attack-on-over-23000-github-repositories/)** by Scott Ikeda, CPO Magazine, 19/03/2025
 - **[GitHub restores code following malicious changes to tj-actions tool](https://therecord.media/github-restores-code-malicious-tj-actions-changes)** by Jonathan Greig, The Record, 18/03/2025
 - **[GitHub Leak Puts Software Supply Chains at Risk: Thousands of Secrets Exposed](https://informationsecuritybuzz.com/github-leak-software-supply-chain-risk/)** by Kirsten Doyle, Information Security Buzz, 18/03/2025
 - **[IT Leaders Share their Insights on Data Privacy and Digital Transformation](https://cioinfluence.com/infosec/it-leaders-share-their-insights-on-data-privacy-and-digital-transformation/)** by Sudipto Ghosh, CIO Influence, 04/02/2024
