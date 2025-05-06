@@ -2,6 +2,8 @@
 
 Talks are listed in reverse chronological order. In case a talk was given in several conferences, only the most relevant one will be linked to the recording/slides.
 
+- **[SciFiDevCon 2025](https://www.scifidevcon.com/courses/2025-scifidevcon)** (04/05/2025 - 23/05/2025)
+  - **[Who Watches the Watchmen?](https://www.scifidevcon.com/courses/2025-scifidevcon/contents/680efa43ae4f5)** ([slides](https://www.slideshare.net/slideshow/who-watches-the-watchmen-scifidevcon-2025/278623532), [recording](https://www.youtube.com/watch?v=giDAQmnsV4I), [code samples](https://github.com/mureinik/wwtw))
 - **[Conf42 JavaScript 2024](https://www.conf42.com/js2024)** (31/10/2024)
   - **[This DoS goes loop-di-loop - preventing DoS attacks in your Node.js application](https://www.conf42.com/JavaScript_2024_Allon_Mureinik_4_dosattacks_nodejs_prevention)** ([recording](https://www.youtube.com/watch?v=ICwdGUjpV-o))
 - **[SciFiDevCon 2024](https://www.scifidevcon.com/courses/2024-scifidevcon-may-the-fourth-be-with-you-this-is-the-may)** (01/05/2024 - 23/05/2024)
