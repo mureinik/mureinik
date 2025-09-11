@@ -2,6 +2,8 @@
 
 Talks are listed in reverse chronological order. In case a talk was given in several conferences, only the most relevant one will be linked to the recording/slides.
 
+- **[Hackeriot 2025](https://www.hackeriot.org/workshops2025)** (10/09/2025)
+  - **Writing CVs** (Hebrew) ([slides](https://www.slideshare.net/slideshow/cv-writing-slides-from-my-hackeriot-2025-workshop-1933/283069789))
 - **Hackeriot CV Party** (03/05/2025)
   - **I See[V] What You Did There** (Hebrew)
 - **[SciFiDevCon 2025](https://www.scifidevcon.com/courses/2025-scifidevcon)** (04/05/2025 - 23/05/2025)
