@@ -2,6 +2,8 @@
 
 Talks are listed in reverse chronological order. In case a talk was given in several conferences, only the most relevant one will be linked to the recording/slides.
 
+- **[XtremeJS 2025](https://xtremejs.dev/2025/)** (02/12/2025)
+  - **This DoS goes loop-di-loop - preventing DoS attacks in your Node.js application**
 - **[Hackeriot 2025](https://www.hackeriot.org/workshops2025)** (10/09/2025)
   - **Writing CVs** (Hebrew) ([slides](https://www.slideshare.net/slideshow/cv-writing-slides-from-my-hackeriot-2025-workshop-1933/283069789))
 - **Hackeriot CV Party** (03/05/2025)
