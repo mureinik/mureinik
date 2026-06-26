@@ -155,40 +155,66 @@
     }
 
     /* Talks Section */
+    #filter-controls {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .filter-group {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .filter-group label {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .filter-group select {
+      padding: 0.4rem 0.8rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .filter-group select:hover {
+      border-color: var(--accent-1);
+    }
+
     #filter-bar {
       display: none;
       align-items: center;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-      padding: 1rem;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 6px;
+      gap: 0.8rem;
+      padding: 0.8rem 1rem;
+      background: var(--accent-4);
+      color: var(--bg);
+      border-radius: 4px;
+      margin-left: auto;
+      font-size: 0.9rem;
     }
 
     #filter-bar.active {
       display: flex;
     }
 
-    #filter-bar span {
-      color: var(--text-muted);
-    }
-
-    #filter-tag {
-      font-weight: 600;
-      color: var(--accent-4);
-    }
-
     .clear-filter {
-      margin-left: auto;
-      padding: 0.4rem 0.8rem;
-      background: var(--accent-2);
-      color: var(--bg);
+      padding: 0.3rem 0.6rem;
+      background: var(--bg);
+      color: var(--accent-4);
       border: none;
-      border-radius: 4px;
+      border-radius: 3px;
       cursor: pointer;
       font-weight: 600;
       transition: all 0.2s;
+      font-size: 0.85rem;
     }
 
     .clear-filter:hover {
@@ -353,6 +379,17 @@
         font-size: 0.7rem;
       }
 
+      #filter-controls {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      #filter-bar {
+        margin-left: 0;
+        width: 100%;
+        justify-content: space-between;
+      }
+
       #talk-list {
         gap: 1rem;
       }
@@ -382,10 +419,26 @@
 
   <section id="talks-section">
     <h2>Talks</h2>
-    <div id="filter-bar">
-      <span>Filtering by:</span>
-      <strong id="filter-tag"></strong>
-      <button class="clear-filter">✕ Show all</button>
+    <div id="filter-controls">
+      <div class="filter-group">
+        <label for="language-filter">Language:</label>
+        <select id="language-filter">
+          <option value="">All</option>
+          <option value="Hebrew">Hebrew</option>
+          <option value="English">English</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="conference-filter">Conference:</label>
+        <select id="conference-filter">
+          <option value="">All</option>
+        </select>
+      </div>
+      <div id="filter-bar">
+        <span>Topic:</span>
+        <strong id="filter-tag"></strong>
+        <button class="clear-filter">✕ Clear</button>
+      </div>
     </div>
     <ul id="talk-list"></ul>
   </section>
@@ -397,16 +450,17 @@
   <script src="https://cdn.jsdelivr.net/npm/wordcloud@1.2.2/src/wordcloud2.js"></script>
   <script>
     let allTalks = [];
-    let currentFilter = null;
-    const conferenceTagsToShow = new Set(['FOSDEM', 'DevConf', 'SciFiDevCon']);
+    let currentTopicFilter = null;
+    let currentLanguageFilter = null;
+    let currentConferenceFilter = null;
+
     const topicTags = new Set(['Security', 'DoS', 'Node.js', 'OWASP', 'Injection', 'Supply chain', 'Open Source', 'Management', 'Career', 'Remote work', 'Cognitive bias', 'Inclusion', 'Community', 'Testing', 'Mockito', 'Infrastructure', 'Java']);
-    const languageTags = new Set(['Hebrew', 'English']);
 
     function buildTagWeights(talks) {
       const tagCount = {};
       talks.forEach(talk => {
         talk.tags.forEach(tag => {
-          if (conferenceTagsToShow.has(tag) || topicTags.has(tag) || languageTags.has(tag)) {
+          if (topicTags.has(tag)) {
             tagCount[tag] = (tagCount[tag] || 0) + 1;
           }
         });
@@ -420,12 +474,6 @@
     }
 
     function getTagColor(tag) {
-      if (languageTags.has(tag) && tag === 'Hebrew') {
-        return 'hsl(160, 60%, 50%)';
-      }
-      if (conferenceTagsToShow.has(tag)) {
-        return 'hsl(10, 70%, 55%)';
-      }
       return 'hsl(270, 60%, 60%)';
     }
 
@@ -442,7 +490,7 @@
         backgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--bg'),
         minSize: 12,
         click(item) {
-          filterByTag(item[0]);
+          filterByTopic(item[0]);
         },
         shrinkToFit: true,
         rotateRatio: 0.1
@@ -456,7 +504,7 @@
         btn.className = 'wc-tag-btn sr-only';
         btn.textContent = tag;
         btn.setAttribute('aria-label', `Filter by ${tag}`);
-        btn.addEventListener('click', () => filterByTag(tag));
+        btn.addEventListener('click', () => filterByTopic(tag));
         a11yContainer.appendChild(btn);
       });
     }
@@ -496,7 +544,9 @@
         const card = document.createElement('li');
         card.className = 'talk-card visible';
         card.dataset.id = talk.id;
-        card.dataset.tags = talk.tags.join(' ');
+        card.dataset.topicTags = talk.tags.filter(t => topicTags.has(t)).join(' ');
+        card.dataset.language = talk.hebrew ? 'Hebrew' : 'English';
+        card.dataset.conference = talk.conference;
 
         let headerHTML = `<div class="talk-header">`;
         if (talk.conferenceUrl) {
@@ -532,12 +582,9 @@
 
         let tagsHTML = `<div class="talk-tags">`;
         talk.tags.forEach(tag => {
-          let tagClass = 'tag-pill';
-          if (topicTags.has(tag)) tagClass += ' topic';
-          else if (conferenceTagsToShow.has(tag)) tagClass += ' conference';
-          else if (languageTags.has(tag)) tagClass += ' ' + (tag === 'Hebrew' ? 'hebrew' : 'language');
-
-          tagsHTML += `<button class="${tagClass}" data-tag="${tag}">${tag}</button>`;
+          if (topicTags.has(tag)) {
+            tagsHTML += `<button class="tag-pill topic" data-tag="${tag}">${tag}</button>`;
+          }
         });
         tagsHTML += `</div>`;
 
@@ -545,41 +592,75 @@
 
         // Add tag click listeners
         card.querySelectorAll('[data-tag]').forEach(btn => {
-          btn.addEventListener('click', () => filterByTag(btn.dataset.tag));
+          btn.addEventListener('click', () => filterByTopic(btn.dataset.tag));
         });
 
         list.appendChild(card);
       });
     }
 
-    function filterByTag(tag) {
-      currentFilter = tag;
-      const cards = document.querySelectorAll('.talk-card');
-
-      cards.forEach(card => {
-        const tags = card.dataset.tags.split(' ');
-        if (tags.includes(tag)) {
-          card.classList.add('visible');
-        } else {
-          card.classList.remove('visible');
-        }
-      });
+    function filterByTopic(tag) {
+      currentTopicFilter = tag;
+      applyFilters();
 
       const filterBar = document.getElementById('filter-bar');
       const filterTag = document.getElementById('filter-tag');
       filterBar.classList.add('active');
       filterTag.textContent = tag;
 
-      // Scroll to talks section
       document.getElementById('talks-section').scrollIntoView({ behavior: 'smooth' });
     }
 
-    function clearFilter() {
-      currentFilter = null;
-      document.querySelectorAll('.talk-card').forEach(card => {
-        card.classList.add('visible');
+    function applyFilters() {
+      const cards = document.querySelectorAll('.talk-card');
+
+      cards.forEach(card => {
+        let visible = true;
+
+        // Topic filter
+        if (currentTopicFilter) {
+          const topicTags = card.dataset.topicTags.split(' ').filter(t => t);
+          if (!topicTags.includes(currentTopicFilter)) {
+            visible = false;
+          }
+        }
+
+        // Language filter
+        if (visible && currentLanguageFilter) {
+          if (card.dataset.language !== currentLanguageFilter) {
+            visible = false;
+          }
+        }
+
+        // Conference filter
+        if (visible && currentConferenceFilter) {
+          if (card.dataset.conference !== currentConferenceFilter) {
+            visible = false;
+          }
+        }
+
+        card.classList.toggle('visible', visible);
       });
-      document.getElementById('filter-bar').classList.remove('active');
+
+      updateFilterBar();
+    }
+
+    function updateFilterBar() {
+      const filterBar = document.getElementById('filter-bar');
+      if (currentTopicFilter) {
+        filterBar.classList.add('active');
+      } else {
+        filterBar.classList.remove('active');
+      }
+    }
+
+    function clearAllFilters() {
+      currentTopicFilter = null;
+      currentLanguageFilter = null;
+      currentConferenceFilter = null;
+      document.getElementById('language-filter').value = '';
+      document.getElementById('conference-filter').value = '';
+      applyFilters();
     }
 
     function escapeHtml(text) {
@@ -607,8 +688,28 @@
         renderYearChart(allTalks);
         renderTalkList(allTalks);
 
-        // Clear filter button
-        document.querySelector('.clear-filter').addEventListener('click', clearFilter);
+        // Populate conference dropdown
+        const conferences = [...new Set(allTalks.map(t => t.conference))].sort();
+        const conferenceSelect = document.getElementById('conference-filter');
+        conferences.forEach(conf => {
+          const option = document.createElement('option');
+          option.value = conf;
+          option.textContent = conf;
+          conferenceSelect.appendChild(option);
+        });
+
+        // Event listeners
+        document.getElementById('language-filter').addEventListener('change', (e) => {
+          currentLanguageFilter = e.target.value || null;
+          applyFilters();
+        });
+
+        document.getElementById('conference-filter').addEventListener('change', (e) => {
+          currentConferenceFilter = e.target.value || null;
+          applyFilters();
+        });
+
+        document.querySelector('.clear-filter').addEventListener('click', clearAllFilters);
 
         // Handle window resize for cloud
         let resizeTimeout;
