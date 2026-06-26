@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Allon Mureinik — Public Speaking</title>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1c1f26;
+      --border: #2d3140;
+      --text: #e2e4ea;
+      --text-muted: #8b8fa8;
+      --accent-1: #7c6af7;
+      --accent-2: #f77c6a;
+      --accent-3: #6af7c0;
+      --accent-4: #f7c26a;
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #ffffff;
+        --surface: #f6f8fa;
+        --border: #d0d7de;
+        --text: #0d1117;
+        --text-muted: #57606a;
+        --accent-1: #6a4dd7;
+        --accent-2: #d1451b;
+        --accent-3: #1a7e5f;
+        --accent-4: #d4a000;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      padding: 3rem 2rem;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      font-weight: 600;
+    }
+
+    header p {
+      margin: 0.5rem 0 0;
+      color: var(--text-muted);
+    }
+
+    section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    h2 {
+      margin: 2rem 0 1rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    /* Cloud Section */
+    #cloud-section {
+      text-align: center;
+    }
+
+    #wc-canvas {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
+    #wc-a11y {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+
+    .wc-tag-btn {
+      padding: 0.4rem 0.8rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .wc-tag-btn:hover {
+      background: var(--accent-1);
+      border-color: var(--accent-1);
+      color: var(--bg);
+    }
+
+    /* Timeline Section */
+    #year-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 0.5rem;
+      height: 150px;
+      margin: 2rem 0;
+    }
+
+    .year-bar {
+      flex: 1;
+      background: var(--accent-1);
+      border-radius: 4px 4px 0 0;
+      position: relative;
+      min-height: 4px;
+      transition: all 0.2s;
+    }
+
+    .year-bar:hover {
+      background: var(--accent-4);
+    }
+
+    .year-label {
+      position: absolute;
+      bottom: -1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Talks Section */
+    #filter-bar {
+      display: none;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+
+    #filter-bar.active {
+      display: flex;
+    }
+
+    #filter-bar span {
+      color: var(--text-muted);
+    }
+
+    #filter-tag {
+      font-weight: 600;
+      color: var(--accent-4);
+    }
+
+    .clear-filter {
+      margin-left: auto;
+      padding: 0.4rem 0.8rem;
+      background: var(--accent-2);
+      color: var(--bg);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .clear-filter:hover {
+      opacity: 0.8;
+    }
+
+    #talk-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .talk-card {
+      padding: 1.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      display: none;
+    }
+
+    .talk-card.visible {
+      display: block;
+    }
+
+    .talk-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .talk-conference {
+      font-weight: 600;
+      color: var(--accent-2);
+    }
+
+    .talk-date {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .hebrew-badge {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      background: var(--accent-3);
+      color: var(--bg);
+      border-radius: 3px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .talk-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 0.5rem 0;
+      color: var(--text);
+    }
+
+    .talk-title a {
+      color: var(--accent-1);
+      text-decoration: none;
+    }
+
+    .talk-title a:hover {
+      text-decoration: underline;
+    }
+
+    .talk-meta {
+      display: flex;
+      gap: 1rem;
+      margin: 0.75rem 0;
+      flex-wrap: wrap;
+      font-size: 0.9rem;
+    }
+
+    .talk-link {
+      color: var(--accent-1);
+      text-decoration: none;
+      padding: 0.2rem 0.6rem;
+      background: var(--bg);
+      border-radius: 3px;
+      display: inline-block;
+      transition: all 0.2s;
+    }
+
+    .talk-link:hover {
+      background: var(--accent-1);
+      color: var(--bg);
+    }
+
+    .talk-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .tag-pill {
+      padding: 0.3rem 0.7rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--text);
+    }
+
+    .tag-pill:hover {
+      background: var(--accent-1);
+      border-color: var(--accent-1);
+      color: var(--bg);
+    }
+
+    .tag-pill.topic {
+      border-color: var(--accent-1);
+    }
+
+    .tag-pill.conference {
+      border-color: var(--accent-2);
+    }
+
+    .tag-pill.hebrew {
+      border-color: var(--accent-3);
+    }
+
+    footer {
+      padding: 2rem;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: var(--accent-1);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.8rem;
+      }
+
+      section {
+        padding: 1rem;
+      }
+
+      #year-chart {
+        height: 100px;
+      }
+
+      .year-label {
+        bottom: -1.2rem;
+        font-size: 0.7rem;
+      }
+
+      #talk-list {
+        gap: 1rem;
+      }
+
+      .talk-card {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Allon Mureinik</h1>
+    <p>Public Speaking</p>
+  </header>
+
+  <section id="cloud-section">
+    <h2>Topics & Conferences</h2>
+    <canvas id="wc-canvas" width="800" height="400"></canvas>
+    <div id="wc-a11y" class="sr-only"></div>
+  </section>
+
+  <section id="timeline-section">
+    <h2>Timeline</h2>
+    <div id="year-chart"></div>
+  </section>
+
+  <section id="talks-section">
+    <h2>Talks</h2>
+    <div id="filter-bar">
+      <span>Filtering by:</span>
+      <strong id="filter-tag"></strong>
+      <button class="clear-filter">✕ Show all</button>
+    </div>
+    <ul id="talk-list"></ul>
+  </section>
+
+  <footer>
+    <p>Back to <a href="/mureinik/">profile</a> | <a href="public_speaking.md">source</a></p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/wordcloud@1.2.2/src/wordcloud2.js"></script>
+  <script>
+    let allTalks = [];
+    let currentFilter = null;
+    const conferenceTagsToShow = new Set(['FOSDEM', 'DevConf', 'SciFiDevCon']);
+    const topicTags = new Set(['Security', 'DoS', 'Node.js', 'OWASP', 'Injection', 'Supply chain', 'Open Source', 'Management', 'Career', 'Remote work', 'Cognitive bias', 'Inclusion', 'Community', 'Testing', 'Mockito', 'Infrastructure', 'Java']);
+    const languageTags = new Set(['Hebrew', 'English']);
+
+    function buildTagWeights(talks) {
+      const tagCount = {};
+      talks.forEach(talk => {
+        talk.tags.forEach(tag => {
+          if (conferenceTagsToShow.has(tag) || topicTags.has(tag) || languageTags.has(tag)) {
+            tagCount[tag] = (tagCount[tag] || 0) + 1;
+          }
+        });
+      });
+
+      const weights = Object.entries(tagCount)
+        .map(([tag, count]) => [tag, count])
+        .sort((a, b) => b[1] - a[1]);
+
+      return weights;
+    }
+
+    function getTagColor(tag) {
+      if (languageTags.has(tag) && tag === 'Hebrew') {
+        return 'hsl(160, 60%, 50%)';
+      }
+      if (conferenceTagsToShow.has(tag)) {
+        return 'hsl(10, 70%, 55%)';
+      }
+      return 'hsl(270, 60%, 60%)';
+    }
+
+    function renderCloud(weights) {
+      const list = weights.map(([tag, count]) => [tag, count * 5]);
+
+      WordCloud(document.getElementById('wc-canvas'), {
+        list,
+        gridSize: 8,
+        weightFactor(size) {
+          return size * 2;
+        },
+        color: (word) => getTagColor(word),
+        backgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--bg'),
+        minSize: 12,
+        click(item) {
+          filterByTag(item[0]);
+        },
+        shrinkToFit: true,
+        rotateRatio: 0.1
+      });
+
+      // Populate a11y buttons
+      const a11yContainer = document.getElementById('wc-a11y');
+      a11yContainer.innerHTML = '';
+      weights.forEach(([tag]) => {
+        const btn = document.createElement('button');
+        btn.className = 'wc-tag-btn sr-only';
+        btn.textContent = tag;
+        btn.setAttribute('aria-label', `Filter by ${tag}`);
+        btn.addEventListener('click', () => filterByTag(tag));
+        a11yContainer.appendChild(btn);
+      });
+    }
+
+    function renderYearChart(talks) {
+      const yearCounts = {};
+      talks.forEach(talk => {
+        const year = new Date(talk.date).getFullYear();
+        yearCounts[year] = (yearCounts[year] || 0) + 1;
+      });
+
+      const years = Object.keys(yearCounts).map(Number).sort();
+      const maxCount = Math.max(...Object.values(yearCounts));
+      const container = document.getElementById('year-chart');
+      container.innerHTML = '';
+
+      years.forEach(year => {
+        const count = yearCounts[year];
+        const height = (count / maxCount) * 100;
+        const bar = document.createElement('div');
+        bar.className = 'year-bar';
+        bar.style.height = `${height}%`;
+        bar.title = `${year}: ${count} talks`;
+        const label = document.createElement('div');
+        label.className = 'year-label';
+        label.textContent = year;
+        bar.appendChild(label);
+        container.appendChild(bar);
+      });
+    }
+
+    function renderTalkList(talks) {
+      const list = document.getElementById('talk-list');
+      list.innerHTML = '';
+
+      talks.forEach(talk => {
+        const card = document.createElement('li');
+        card.className = 'talk-card visible';
+        card.dataset.id = talk.id;
+        card.dataset.tags = talk.tags.join(' ');
+
+        let headerHTML = `<div class="talk-header">`;
+        if (talk.conferenceUrl) {
+          headerHTML += `<a href="${talk.conferenceUrl}" class="talk-conference">${talk.conference}</a>`;
+        } else {
+          headerHTML += `<span class="talk-conference">${talk.conference}</span>`;
+        }
+        headerHTML += `<span class="talk-date">${talk.dateDisplay}</span>`;
+        if (talk.hebrew) {
+          headerHTML += `<span class="hebrew-badge">Hebrew</span>`;
+        }
+        headerHTML += `</div>`;
+
+        let titleHTML = `<div class="talk-title">`;
+        if (talk.talkUrl) {
+          titleHTML += `<a href="${talk.talkUrl}">${escapeHtml(talk.title)}</a>`;
+        } else {
+          titleHTML += escapeHtml(talk.title);
+        }
+        titleHTML += `</div>`;
+
+        let metaHTML = `<div class="talk-meta">`;
+        if (talk.slides) {
+          metaHTML += `<a href="${talk.slides}" class="talk-link">📊 Slides</a>`;
+        }
+        if (talk.recording) {
+          metaHTML += `<a href="${talk.recording}" class="talk-link">🎬 Recording</a>`;
+        }
+        if (talk.code) {
+          metaHTML += `<a href="${talk.code}" class="talk-link">💻 Code</a>`;
+        }
+        metaHTML += `</div>`;
+
+        let tagsHTML = `<div class="talk-tags">`;
+        talk.tags.forEach(tag => {
+          let tagClass = 'tag-pill';
+          if (topicTags.has(tag)) tagClass += ' topic';
+          else if (conferenceTagsToShow.has(tag)) tagClass += ' conference';
+          else if (languageTags.has(tag)) tagClass += ' ' + (tag === 'Hebrew' ? 'hebrew' : 'language');
+
+          tagsHTML += `<button class="${tagClass}" data-tag="${tag}">${tag}</button>`;
+        });
+        tagsHTML += `</div>`;
+
+        card.innerHTML = headerHTML + titleHTML + metaHTML + tagsHTML;
+
+        // Add tag click listeners
+        card.querySelectorAll('[data-tag]').forEach(btn => {
+          btn.addEventListener('click', () => filterByTag(btn.dataset.tag));
+        });
+
+        list.appendChild(card);
+      });
+    }
+
+    function filterByTag(tag) {
+      currentFilter = tag;
+      const cards = document.querySelectorAll('.talk-card');
+
+      cards.forEach(card => {
+        const tags = card.dataset.tags.split(' ');
+        if (tags.includes(tag)) {
+          card.classList.add('visible');
+        } else {
+          card.classList.remove('visible');
+        }
+      });
+
+      const filterBar = document.getElementById('filter-bar');
+      const filterTag = document.getElementById('filter-tag');
+      filterBar.classList.add('active');
+      filterTag.textContent = tag;
+
+      // Scroll to talks section
+      document.getElementById('talks-section').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function clearFilter() {
+      currentFilter = null;
+      document.querySelectorAll('.talk-card').forEach(card => {
+        card.classList.add('visible');
+      });
+      document.getElementById('filter-bar').classList.remove('active');
+    }
+
+    function escapeHtml(text) {
+      const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+      };
+      return text.replace(/[&<>"']/g, m => map[m]);
+    }
+
+    async function init() {
+      try {
+        const response = await fetch('public_speaking.json');
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        allTalks = await response.json();
+
+        // Sort by date descending
+        allTalks.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        const weights = buildTagWeights(allTalks);
+        renderCloud(weights);
+        renderYearChart(allTalks);
+        renderTalkList(allTalks);
+
+        // Clear filter button
+        document.querySelector('.clear-filter').addEventListener('click', clearFilter);
+
+        // Handle window resize for cloud
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+          clearTimeout(resizeTimeout);
+          resizeTimeout = setTimeout(() => {
+            const weights = buildTagWeights(allTalks);
+            renderCloud(weights);
+          }, 300);
+        });
+      } catch (error) {
+        console.error('Failed to load talks:', error);
+        document.getElementById('talk-list').innerHTML = '<li><p>Error loading talks data.</p></li>';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
