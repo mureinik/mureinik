@@ -144,6 +144,11 @@
       background: var(--accent-4);
     }
 
+    .year-bar.selected {
+      background: var(--accent-4);
+      box-shadow: 0 0 0 2px var(--accent-1);
+    }
+
     .year-label {
       position: absolute;
       bottom: -1.5rem;
@@ -454,6 +459,7 @@
     let currentTopicFilter = null;
     let currentLanguageFilter = null;
     let currentConferenceFilter = null;
+    let currentYearFilter = null;
 
     function buildTagWeights(talks) {
       const tagCount = {};
@@ -527,6 +533,9 @@
         bar.className = 'year-bar';
         bar.style.height = `${height}%`;
         bar.title = `${year}: ${count} talks`;
+        bar.dataset.year = year;
+        bar.style.cursor = 'pointer';
+        bar.addEventListener('click', () => filterByYear(year));
         const label = document.createElement('div');
         label.className = 'year-label';
         label.textContent = year;
@@ -546,6 +555,7 @@
         card.dataset.topicTags = talk.tags.filter(t => topicTags.has(t)).join(' ');
         card.dataset.language = talk.hebrew ? 'Hebrew' : 'English';
         card.dataset.conference = talk.conference;
+        card.dataset.year = new Date(talk.date).getFullYear();
 
         let headerHTML = `<div class="talk-header">`;
         if (talk.conferenceUrl) {
@@ -638,6 +648,13 @@
           }
         }
 
+        // Year filter
+        if (visible && currentYearFilter) {
+          if (parseInt(card.dataset.year) !== currentYearFilter) {
+            visible = false;
+          }
+        }
+
         card.classList.toggle('visible', visible);
       });
 
@@ -653,12 +670,26 @@
       }
     }
 
+    function filterByYear(year) {
+      currentYearFilter = year;
+      applyFilters();
+
+      // Highlight selected year bar
+      document.querySelectorAll('.year-bar').forEach(bar => {
+        bar.classList.toggle('selected', parseInt(bar.dataset.year) === year);
+      });
+    }
+
     function clearAllFilters() {
       currentTopicFilter = null;
       currentLanguageFilter = null;
       currentConferenceFilter = null;
+      currentYearFilter = null;
       document.getElementById('language-filter').value = '';
       document.getElementById('conference-filter').value = '';
+      document.querySelectorAll('.year-bar').forEach(bar => {
+        bar.classList.remove('selected');
+      });
       applyFilters();
     }
 
@@ -714,7 +745,9 @@
           applyFilters();
         });
 
-        document.querySelector('.clear-filter').addEventListener('click', clearAllFilters);
+        const clearBtn = document.querySelector('.clear-filter');
+        clearBtn.addEventListener('click', clearAllFilters);
+        clearBtn.textContent = '✕ Clear all filters';
 
         // Handle window resize for cloud
         let resizeTimeout;
