@@ -450,11 +450,10 @@
   <script src="https://cdn.jsdelivr.net/npm/wordcloud@1.2.2/src/wordcloud2.js"></script>
   <script>
     let allTalks = [];
+    let topicTags = new Set();
     let currentTopicFilter = null;
     let currentLanguageFilter = null;
     let currentConferenceFilter = null;
-
-    const topicTags = new Set(['Security', 'DoS', 'Node.js', 'OWASP', 'Injection', 'Supply chain', 'Open Source', 'Management', 'Career', 'Remote work', 'Cognitive bias', 'Inclusion', 'Community', 'Testing', 'Mockito', 'Infrastructure', 'Java']);
 
     function buildTagWeights(talks) {
       const tagCount = {};
@@ -678,7 +677,13 @@
       try {
         const response = await fetch('public_speaking.json');
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        allTalks = await response.json();
+        const data = await response.json();
+
+        // Extract topic tags from metadata
+        topicTags = new Set(data.tags.topics);
+
+        // Extract talks
+        allTalks = data.talks;
 
         // Sort by date descending
         allTalks.sort((a, b) => new Date(b.date) - new Date(a.date));
