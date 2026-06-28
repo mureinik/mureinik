@@ -39,7 +39,8 @@
         "Node.js",
         "Security",
         "English"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "hackeriot-2025-cv",
@@ -57,11 +58,12 @@
       "tags": [
         "Career",
         "Hebrew"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "hackeriot-cv-party",
-      "conference": "Hackeriot CV Party",
+      "conference": "Hackeriot",
       "conferenceUrl": null,
       "title": "I See[V] What You Did There",
       "talkUrl": null,
@@ -75,7 +77,8 @@
       "tags": [
         "Career",
         "Hebrew"
-      ]
+      ],
+      "subname": "Hackeriot CV Party"
     },
     {
       "id": "scifidevcon-2025",
@@ -94,7 +97,8 @@
         "Security",
         "SciFiDevCon",
         "English"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "conf42-js-2024",
@@ -114,7 +118,8 @@
         "Node.js",
         "Security",
         "English"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "scifidevcon-2024",
@@ -133,11 +138,12 @@
         "Inclusion",
         "SciFiDevCon",
         "English"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "pancakescon-2024",
-      "conference": "PancakesCon 5 \u2013 Full Stack Hack",
+      "conference": "PancakesCon",
       "conferenceUrl": "https://pancakescon.com/2024-conference-information/",
       "title": "Default to Async - Prevent DoS attacks on your app and your day",
       "talkUrl": null,
@@ -153,7 +159,8 @@
         "Node.js",
         "Security",
         "English"
-      ]
+      ],
+      "subname": "PancakesCon 5 \u2013 Full Stack Hack"
     },
     {
       "id": "scifidevcon-2023",
@@ -172,7 +179,8 @@
         "Inclusion",
         "SciFiDevCon",
         "English"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "dbi-2023",
@@ -191,7 +199,8 @@
         "Security",
         "Management",
         "English"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "brighttalk-2022-06",
@@ -210,7 +219,8 @@
         "Security",
         "Career",
         "English"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "scifidevcon-2022",
@@ -229,7 +239,8 @@
         "Inclusion",
         "SciFiDevCon",
         "English"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "dbi-2022",
@@ -248,7 +259,8 @@
         "Security",
         "Management",
         "English"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "fosdem-2022-security",
@@ -268,7 +280,8 @@
         "Career",
         "FOSDEM",
         "English"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "fosdem-2022-nodejs",
@@ -288,7 +301,8 @@
         "Node.js",
         "FOSDEM",
         "English"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "devconfcz-2022-security",
@@ -308,7 +322,8 @@
         "Career",
         "DevConf",
         "English"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "devconfcz-2022-dos",
@@ -328,7 +343,8 @@
         "Node.js",
         "DevConf",
         "English"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "developerweek-austin-2021",
@@ -347,7 +363,8 @@
         "Security",
         "Career",
         "English"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "techstrongcon-2021",
@@ -365,7 +382,8 @@
       "tags": [
         "Remote work",
         "English"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "devconfcz-2021",
@@ -384,7 +402,8 @@
         "Remote work",
         "DevConf",
         "English"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "fosdem-2021-remote",
@@ -403,7 +422,8 @@
         "Remote work",
         "FOSDEM",
         "English"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "fosdem-2021-dos",
@@ -423,7 +443,8 @@
         "Node.js",
         "FOSDEM",
         "English"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "devconfus-2020",
@@ -443,7 +464,8 @@
         "Security",
         "DevConf",
         "English"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "brighttalk-2020-06",
@@ -463,7 +485,8 @@
         "Node.js",
         "Security",
         "English"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "brighttalk-2020-02",
@@ -482,7 +505,8 @@
         "Open Source",
         "Management",
         "English"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "fosdem-2020",
@@ -502,7 +526,8 @@
         "Inclusion",
         "FOSDEM",
         "English"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "devconfcz-2020",
@@ -522,7 +547,8 @@
         "Inclusion",
         "DevConf",
         "English"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "flawcon-2019",
@@ -542,7 +568,8 @@
         "Node.js",
         "Security",
         "English"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "devconfus-2019",
@@ -562,7 +589,8 @@
         "Management",
         "DevConf",
         "English"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "devconfcz-2019",
@@ -581,7 +609,8 @@
         "Open Source",
         "DevConf",
         "English"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "august-penguin-2018",
@@ -599,7 +628,8 @@
       "tags": [
         "Open Source",
         "Hebrew"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "devconfus-2018",
@@ -618,7 +648,8 @@
         "Open Source",
         "DevConf",
         "English"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "devconfcz-2018-auto",
@@ -637,7 +668,8 @@
         "Open Source",
         "DevConf",
         "English"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "devconfcz-2018-mockito",
@@ -657,7 +689,8 @@
         "Community",
         "DevConf",
         "English"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "devconfcz-2018-jawat",
@@ -676,7 +709,8 @@
         "Java",
         "DevConf",
         "English"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "august-penguin-2017",
@@ -695,7 +729,8 @@
         "Mockito",
         "Community",
         "Hebrew"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "reversim-2016",
@@ -713,7 +748,8 @@
       "tags": [
         "Java",
         "Hebrew"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "devconfcz-2016",
@@ -732,7 +768,8 @@
         "Open Source",
         "DevConf",
         "English"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "august-penguin-2015",
@@ -750,7 +787,8 @@
       "tags": [
         "Infrastructure",
         "Hebrew"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "devconfcz-2015",
@@ -769,7 +807,8 @@
         "Infrastructure",
         "DevConf",
         "English"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "devconfcz-2014",
@@ -788,7 +827,8 @@
         "Infrastructure",
         "DevConf",
         "English"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "devcontlv-2014",
@@ -806,7 +846,8 @@
       "tags": [
         "Testing",
         "Hebrew"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "august-penguin-2013",
@@ -825,7 +866,8 @@
         "Testing",
         "Java",
         "Hebrew"
-      ]
+      ],
+      "subname": ""
     },
     {
       "id": "open-storage-meetup-2013",
@@ -843,7 +885,8 @@
       "tags": [
         "Infrastructure",
         "English"
-      ]
+      ],
+      "subname": ""
     }
   ]
 }
