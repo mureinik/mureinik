@@ -552,7 +552,7 @@
         const card = document.createElement('li');
         card.className = 'talk-card visible';
         card.dataset.id = talk.id;
-        card.dataset.topicTags = talk.tags.filter(t => topicTags.has(t)).join(' ');
+        card.dataset.topicTags = JSON.stringify(talk.tags.filter(t => topicTags.has(t)));
         card.dataset.language = talk.hebrew ? 'Hebrew' : 'English';
         card.dataset.conference = talk.conference;
         card.dataset.year = new Date(talk.date).getFullYear();
@@ -629,8 +629,8 @@
 
         // Topic filter
         if (currentTopicFilter) {
-          const topicTags = card.dataset.topicTags.split(' ').filter(t => t);
-          if (!topicTags.includes(currentTopicFilter)) {
+          const cardTopicTags = JSON.parse(card.dataset.topicTags);
+          if (!cardTopicTags.includes(currentTopicFilter)) {
             visible = false;
           }
         }
