@@ -711,11 +711,20 @@
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
 
-        // Extract topic tags from metadata
-        topicTags = new Set(data.tags.topics);
-
         // Extract talks
         allTalks = data.talks;
+
+        // Build topic tags set from all talks (exclude language tags)
+        const languageTags = new Set(['Hebrew', 'English']);
+        const allTagsSet = new Set();
+        allTalks.forEach(talk => {
+          talk.tags.forEach(tag => {
+            if (!languageTags.has(tag)) {
+              allTagsSet.add(tag);
+            }
+          });
+        });
+        topicTags = allTagsSet;
 
         // Sort by date descending
         allTalks.sort((a, b) => new Date(b.date) - new Date(a.date));

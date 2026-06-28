@@ -1,25 +1,4 @@
 {
-  "tags": {
-    "topics": [
-      "Security",
-      "DoS",
-      "Node.js",
-      "OWASP",
-      "Injection",
-      "Supply chain",
-      "Open Source",
-      "Management",
-      "Career",
-      "Remote work",
-      "Cognitive bias",
-      "Inclusion",
-      "Community",
-      "Testing",
-      "Mockito",
-      "Infrastructure",
-      "Java"
-    ]
-  },
   "talks": [
     {
       "id": "xtremejs-2025",
