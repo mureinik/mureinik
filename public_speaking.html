@@ -552,8 +552,8 @@
         const card = document.createElement('li');
         card.className = 'talk-card visible';
         card.dataset.id = talk.id;
-        card.dataset.topicTags = JSON.stringify(talk.tags.filter(t => topicTags.has(t)));
-        card.dataset.language = talk.hebrew ? 'Hebrew' : 'English';
+        card.dataset.topicTags = JSON.stringify(talk.tags);
+        card.dataset.language = talk.language;
         card.dataset.conference = talk.conference;
         card.dataset.year = new Date(talk.date).getFullYear();
 
@@ -565,7 +565,7 @@
           headerHTML += `<span class="talk-conference">${escapeHtml(displayConference)}</span>`;
         }
         headerHTML += `<span class="talk-date">${talk.dateDisplay}</span>`;
-        if (talk.hebrew) {
+        if (talk.language === 'Hebrew') {
           headerHTML += `<span class="hebrew-badge">Hebrew</span>`;
         }
         headerHTML += `</div>`;
@@ -714,14 +714,11 @@
         // Extract talks
         allTalks = data.talks;
 
-        // Build topic tags set from all talks (exclude language tags)
-        const languageTags = new Set(['Hebrew', 'English']);
+        // Build topic tags set from all talks
         const allTagsSet = new Set();
         allTalks.forEach(talk => {
           talk.tags.forEach(tag => {
-            if (!languageTags.has(tag)) {
-              allTagsSet.add(tag);
-            }
+            allTagsSet.add(tag);
           });
         });
         topicTags = allTagsSet;
