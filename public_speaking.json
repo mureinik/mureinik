@@ -1,6 +1,24 @@
 {
   "talks": [
     {
+      "id": "nitzanim-2026",
+      "conference": "Nitzanim To Tech",
+      "conferenceUrl": "https://nitzanim.udi.org.il/nitzanim-to-tech/",
+      "title": "CV, the first step in your job search",
+      "talkUrl": null,
+      "date": "2026-06-29",
+      "dateDisplay": "29/06/2026",
+      "dateEnd": "2026-06-29",
+      "slides": null,
+      "recording": null,
+      "code": null,
+      "tags": [
+        "Career"
+      ],
+      "subname": "",
+      "language": "Hebrew"
+    },
+    {
       "id": "xtremejs-2025",
       "conference": "XtremeJS",
       "conferenceUrl": "https://xtremejs.dev/2025/",
