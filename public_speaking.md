@@ -2,6 +2,8 @@
 
 Talks are listed in reverse chronological order. In case a talk was given in several conferences, only the most relevant one will be linked to the recording/slides.
 
+- **[Nitzanim To Tech 2026](https://nitzanim.udi.org.il/nitzanim-to-tech/)** (29/06/2026)
+    - **CV, the first step in your job search** (Hebrew)
 - **[XtremeJS 2025](https://xtremejs.dev/2025/)** (02/12/2025)
     - **This DoS goes loop-di-loop - preventing DoS attacks in your Node.js application** ([recording](https://www.youtube.com/watch?v=JQt6yZGWyLQ))
 - **[Hackeriot 2025](https://www.hackeriot.org/workshops2025)** (10/09/2025)
