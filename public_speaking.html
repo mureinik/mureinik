@@ -558,7 +558,8 @@
         card.dataset.year = new Date(talk.date).getFullYear();
 
         let headerHTML = `<div class="talk-header">`;
-        const displayConference = talk.subname || talk.conference;
+        const year = new Date(talk.date).getFullYear();
+        const displayConference = talk.subname || `${talk.conference} ${year}`;
         if (talk.conferenceUrl) {
           headerHTML += `<a href="${talk.conferenceUrl}" class="talk-conference">${escapeHtml(displayConference)}</a>`;
         } else {
