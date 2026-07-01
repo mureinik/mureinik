@@ -273,7 +273,8 @@
       "tags": [
         "Injection",
         "Node.js",
-        "English"
+        "English",
+        "Security"
       ],
       "subname": ""
     },
@@ -313,7 +314,8 @@
       "tags": [
         "Injection",
         "Node.js",
-        "English"
+        "English",
+        "Security"
       ],
       "subname": ""
     },
@@ -410,7 +412,8 @@
       "tags": [
         "DoS",
         "Node.js",
-        "English"
+        "English",
+        "Security"
       ],
       "subname": ""
     },
@@ -648,7 +651,8 @@
       "tags": [
         "Mockito",
         "Community",
-        "English"
+        "English",
+        "Java"
       ],
       "subname": ""
     },
@@ -687,7 +691,8 @@
       "tags": [
         "Mockito",
         "Community",
-        "Hebrew"
+        "Hebrew",
+        "Java"
       ],
       "subname": ""
     },
