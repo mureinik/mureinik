@@ -11,7 +11,7 @@ Passionate about open source, automating code quality and team building, not nec
 - [Twitter](https://twitter.com/mureinik)
 - [LinkedIn](https://www.linkedin.com/in/mureinik/)
 - [SlideShare](https://www.slideshare.net/AllonMureinik)
-- [Public Speaking](./public_speaking.md)
+- [Public Speaking](https://mureinik.github.io/mureinik/public_speaking.html) ([legacy markdown](./public_speaking.md))
 - [Recorded Talks](https://www.youtube.com/playlist?list=PL1nvafMwjHaDkO-1yyJ4PlJiutiMQyztA)
 - [Articles](./articles.md)
 - [Stack Overflow](https://stackoverflow.com/users/2422776/mureinik)
