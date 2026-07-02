@@ -87,7 +87,7 @@
       "recording": "https://www.youtube.com/watch?v=giDAQmnsV4I",
       "code": "https://github.com/mureinik/wwtw",
       "tags": [
-        "Security"
+        "Software Engineering"
       ],
       "subname": "",
       "language": "English"
@@ -125,7 +125,7 @@
       "recording": "https://youtu.be/Z_Csxyc2xk0",
       "code": null,
       "tags": [
-        "Inclusion"
+        "Management"
       ],
       "subname": "",
       "language": "English"
@@ -145,7 +145,8 @@
       "tags": [
         "DoS",
         "Node.js",
-        "Security"
+        "Security",
+        "Management"
       ],
       "subname": "PancakesCon 5 – Full Stack Hack",
       "language": "English"
@@ -163,7 +164,7 @@
       "recording": "https://youtu.be/yp_sspeVrS4",
       "code": null,
       "tags": [
-        "Inclusion"
+        "Management"
       ],
       "subname": "",
       "language": "English"
@@ -200,8 +201,7 @@
       "recording": null,
       "code": null,
       "tags": [
-        "Security",
-        "Career"
+        "Security"
       ],
       "subname": "",
       "language": "English"
@@ -219,7 +219,8 @@
       "recording": "https://youtu.be/kiSVdnKy7fM",
       "code": "https://github.com/mureinik/we-are-the-borg",
       "tags": [
-        "Inclusion"
+        "Management",
+        "Career"
       ],
       "subname": "",
       "language": "English"
@@ -256,8 +257,7 @@
       "recording": "https://video.fosdem.org/2022/M.security/security_wishes.webm",
       "code": null,
       "tags": [
-        "Security",
-        "Career"
+        "Security"
       ],
       "subname": "",
       "language": "English"
@@ -277,7 +277,8 @@
       "tags": [
         "Injection",
         "Node.js",
-        "Security"
+        "Security",
+        "DoS"
       ],
       "subname": "",
       "language": "English"
@@ -295,8 +296,7 @@
       "recording": "https://www.youtube.com/watch?v=peZmUf8RUw0",
       "code": null,
       "tags": [
-        "Security",
-        "Career"
+        "Security"
       ],
       "subname": "",
       "language": "English"
@@ -316,7 +316,8 @@
       "tags": [
         "Injection",
         "Node.js",
-        "Security"
+        "Security",
+        "DoS"
       ],
       "subname": "",
       "language": "English"
@@ -334,8 +335,7 @@
       "recording": null,
       "code": null,
       "tags": [
-        "Security",
-        "Career"
+        "Security"
       ],
       "subname": "",
       "language": "English"
@@ -353,7 +353,8 @@
       "recording": "https://vimeo.com/digitalanarchist/download/571734205/18152352d3",
       "code": null,
       "tags": [
-        "Remote work"
+        "Remote work",
+        "Management"
       ],
       "subname": "",
       "language": "English"
@@ -371,7 +372,8 @@
       "recording": "https://www.youtube.com/watch?v=peZmUf8RUw0",
       "code": null,
       "tags": [
-        "Remote work"
+        "Remote work",
+        "Management"
       ],
       "subname": "",
       "language": "English"
@@ -389,7 +391,8 @@
       "recording": "https://video.fosdem.org/2021/D.community/community_devroom_abracadabra_everyones_remote.webm",
       "code": null,
       "tags": [
-        "Remote work"
+        "Remote work",
+        "Management"
       ],
       "subname": "",
       "language": "English"
@@ -467,7 +470,8 @@
       "code": null,
       "tags": [
         "Open Source",
-        "Management"
+        "Management",
+        "Career"
       ],
       "subname": "",
       "language": "English"
@@ -486,7 +490,8 @@
       "code": null,
       "tags": [
         "Cognitive bias",
-        "Inclusion"
+        "Inclusion",
+        "Open Source"
       ],
       "subname": "",
       "language": "English"
@@ -505,7 +510,8 @@
       "code": null,
       "tags": [
         "Cognitive bias",
-        "Inclusion"
+        "Inclusion",
+        "Open Source"
       ],
       "subname": "",
       "language": "English"
@@ -544,7 +550,8 @@
       "code": null,
       "tags": [
         "Open Source",
-        "Management"
+        "Management",
+        "Career"
       ],
       "subname": "",
       "language": "English"
@@ -562,7 +569,8 @@
       "recording": "https://www.youtube.com/watch?v=W9afb-1QQxc",
       "code": null,
       "tags": [
-        "Open Source"
+        "Open Source",
+        "Career"
       ],
       "subname": "",
       "language": "English"
@@ -580,7 +588,8 @@
       "recording": null,
       "code": null,
       "tags": [
-        "Open Source"
+        "Open Source",
+        "Career"
       ],
       "subname": "",
       "language": "Hebrew"
@@ -598,7 +607,8 @@
       "recording": null,
       "code": null,
       "tags": [
-        "Open Source"
+        "Software Engineering",
+        "Testing"
       ],
       "subname": "",
       "language": "English"
@@ -616,7 +626,8 @@
       "recording": null,
       "code": null,
       "tags": [
-        "Open Source"
+        "Software Engineering",
+        "Testing"
       ],
       "subname": "",
       "language": "English"
@@ -710,7 +721,8 @@
       "recording": "https://www.youtube.com/watch?v=L8LWYr3xLLg",
       "code": null,
       "tags": [
-        "Open Source"
+        "Open Source",
+        "Career"
       ],
       "subname": "",
       "language": "English"
@@ -728,7 +740,7 @@
       "recording": null,
       "code": null,
       "tags": [
-        "Infrastructure"
+        "oVirt"
       ],
       "subname": "",
       "language": "Hebrew"
@@ -746,7 +758,8 @@
       "recording": "https://www.youtube.com/watch?v=GJzWjc9Yu7E",
       "code": null,
       "tags": [
-        "Infrastructure"
+        "Software Engineering",
+        "oVirt"
       ],
       "subname": "",
       "language": "English"
@@ -764,7 +777,7 @@
       "recording": null,
       "code": null,
       "tags": [
-        "Infrastructure"
+        "oVirt"
       ],
       "subname": "",
       "language": "English"
@@ -782,7 +795,8 @@
       "recording": null,
       "code": null,
       "tags": [
-        "Testing"
+        "Testing",
+        "Software Engineering"
       ],
       "subname": "",
       "language": "Hebrew"
@@ -819,7 +833,7 @@
       "recording": null,
       "code": null,
       "tags": [
-        "Infrastructure"
+        "oVirt"
       ],
       "subname": "",
       "language": "English"
