@@ -223,7 +223,8 @@
         "Career"
       ],
       "subname": "",
-      "language": "English"
+      "language": "English",
+      "requiresLogin": true
     },
     {
       "id": "dbi-2022",
