@@ -17,7 +17,7 @@ const LOGIN_TITLE = 'Requires a login to view';
 // Links listed in a talk's "archived" map point at hosts that are gone for
 // good; the value is the Wayback Machine timestamp to serve the copy from.
 const ARCHIVE_MARKER = '\u{1F5C4}\uFE0F';
-const ARCHIVE_TITLE = 'Archived copy \u2014 the original page is gone';
+const ARCHIVE_TITLE = 'Archived copy - the original page is gone';
 
 const snapshot = (talk, field) => (talk.archived || {})[field];
 const linkUrl = (talk, field) => {
