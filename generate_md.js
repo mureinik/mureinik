@@ -9,6 +9,12 @@ const mdPath = path.join(__dirname, 'public_speaking.md');
 const data = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
 const talks = data.talks;
 
+// Talks flagged with requiresLogin are only reachable to a signed-in visitor.
+// Markdown has no hover of its own, but GitHub renders link titles as tooltips.
+const LOGIN_MARKER = '\u{1F512}';
+const LOGIN_TITLE = 'Requires a login to view';
+const linkTitle = (talk) => (talk.requiresLogin ? ` "${LOGIN_TITLE}"` : '');
+
 let md = `### Public Speaking
 
 Talks are listed in reverse chronological order. In case a talk was given in several conferences, only the most relevant one will be linked to the recording/slides.
@@ -32,7 +38,7 @@ talks.forEach((talk) => {
       : talk.dateDisplay;
 
     if (talk.conferenceUrl) {
-      md += `- **[${confName}](${talk.conferenceUrl})** (${dateRange})\n`;
+      md += `- **[${confName}](${talk.conferenceUrl}${linkTitle(talk)})** (${dateRange})\n`;
     } else {
       md += `- **${confName}** (${dateRange})\n`;
     }
@@ -41,11 +47,15 @@ talks.forEach((talk) => {
   // Add talk entry
   let talkLine = '    - **';
   if (talk.talkUrl) {
-    talkLine += `[${talk.title}](${talk.talkUrl})`;
+    talkLine += `[${talk.title}](${talk.talkUrl}${linkTitle(talk)})`;
   } else {
     talkLine += talk.title;
   }
   talkLine += '**';
+
+  if (talk.requiresLogin) {
+    talkLine += ` ${LOGIN_MARKER}`;
+  }
 
   if (talk.language === 'Hebrew') {
     talkLine += ' (Hebrew)';
