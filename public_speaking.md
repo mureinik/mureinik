@@ -23,7 +23,7 @@ Talks are listed in reverse chronological order. In case a talk was given in sev
 - **[Doing Business in Israel (DBI) MBA Program 2023](https://en-coller.tau.ac.il/the-programs/dbi)** (12/02/2023)
     - **A Startup-Nation Perspective on Cyber Security**
 - **BrightTALK Webinar 2022** (09/06/2022)
-    - **[What I Wish I Knew About Security When I Started Programming](https://www.brighttalk.com/webcast/13983/541479)**
+    - **What I Wish I Knew About Security When I Started Programming**
 - **[SciFiDevCon 2022](https://www.scifidevcon.com/courses/scifidevcon-presents-31-days-of-may-the-fourth-be-with-you-2022 "Requires a login to view")** (01/05/2022 - 23/05/2022)
     - **[We are the Borg, you will be interviewed](https://www.scifidevcon.com/courses/scifidevcon-presents-31-days-of-may-the-fourth-be-with-you-2022/contents/63dd5e802a2dc "Requires a login to view")** 🔒 ([slides](https://www.slideshare.net/AllonMureinik/we-are-the-borg-you-will-be-interviewed/), [recording](https://youtu.be/kiSVdnKy7fM), [code samples](https://github.com/mureinik/we-are-the-borg))
 - **[Doing Business in Israel (DBI) MBA Program 2022](https://en-coller.tau.ac.il/the-programs/dbi)** (13/02/2022)
@@ -34,8 +34,8 @@ Talks are listed in reverse chronological order. In case a talk was given in sev
 - **[DevConf.CZ 2022](https://devconfcz2022.sched.com/)** (28/01/2022 - 29/01/2022)
     - **[What I always wish I knew about security](https://devconfcz2022.sched.com/event/siEy/what-i-always-wish-i-knew-about-security)** ([slides](https://static.sched.com/hosted_files/devconfcz2022/2d/What%20I%20wish%20I%20knew%20about%20security.pdf), [recording](https://www.youtube.com/watch?v=peZmUf8RUw0))
     - **[Somebody set up us the bomb](https://devconfcz2022.sched.com/event/vvvF/lightning-talks)** ([slides](https://static.sched.com/hosted_files/devconfcz2022/14/Somebody%20set%20up%20us%20the%20bomb%20-%20Allon%20Mureinik%20DevConfCZ%202022.pdf), [recording](https://youtu.be/WJkwJBrhTfk))
-- **[DeveloperWeek Austin 2021](https://hopin.com/events/developerweek-austin-2021)** (17/11/2021 - 18/11/2021)
-    - **[What I Wish I Knew About Security When I Started Programming](https://emamo.com/event/developerweek-austin-2021/s/what-i-wish-i-knew-about-security-when-i-started-programming-oz9rBW)**
+- **[DeveloperWeek Austin 2021 🗄️](https://web.archive.org/web/20211118161326/https://hopin.com/events/developerweek-austin-2021 "Archived copy - the original page is gone")** (17/11/2021 - 18/11/2021)
+    - **[What I Wish I Knew About Security When I Started Programming 🗄️](https://web.archive.org/web/20211116164640/https://emamo.com/event/developerweek-austin-2021/s/what-i-wish-i-knew-about-security-when-i-started-programming-oz9rBW "Archived copy - the original page is gone")**
 - **[TechStrongCon 2021](https://techstrongevents.com/)** (14/07/2021 - 15/07/2021)
     - **Abracadabra, now everyone's a remotee!** ([recording](https://vimeo.com/digitalanarchist/download/571734205/18152352d3))
 - **[DevConf.CZ 2021](https://devconfcz2021.sched.com/)** (18/02/2021 - 20/02/2021)
@@ -46,20 +46,20 @@ Talks are listed in reverse chronological order. In case a talk was given in sev
 - **[DevConf.US 2020](https://devconfus2020.sched.com/)** (24/09/2020 - 25/09/2020)
     - **[OWASP Top-10 - quickstart your security awareness](https://devconfus2020.sched.com/event/dyLC/owasp-top-10-quickstart-your-security-awareness)** ([slides](https://www.slideshare.net/AllonMureinik/devconfus-2020-owasp-top-10-allon-mureinik), [recording](https://www.youtube.com/watch?v=6Z5hlgZQQt0))
 - **BrightTALK Webinar 2020** (23/06/2020)
-    - **[The DoS Goes Loop-di-loop](https://www.brighttalk.com/webcast/13983/400475)**
+    - **[The DoS Goes Loop-di-loop 🗄️](https://web.archive.org/web/20201209072234/https://www.brighttalk.com/webcast/13983/400475 "Archived copy - the original page is gone")**
 - **BrightTALK Webinar 2020** (11/02/2020)
-    - **[How Open Source Made Me a Better Manager](https://www.brighttalk.com/webcast/13983/376375)**
+    - **[How Open Source Made Me a Better Manager 🗄️](https://web.archive.org/web/20201208071823/https://www.brighttalk.com/webcast/13983/376375 "Archived copy - the original page is gone")**
 - **[FOSDEM 2020](https://fosdem.org/2020/)** (01/02/2020 - 02/02/2020)
     - **[Cognitive biases, blindspots and inclusion](https://archive.fosdem.org/2020/schedule/event/cognitivebias/)** ([slides](https://archive.fosdem.org/2020/schedule/event/cognitivebias/attachments/slides/3693/export/events/attachments/cognitivebias/slides/3693/cognitive_bias_fosdem2020.pdf), [recording](https://video.fosdem.org/2020/UB5.230/cognitivebias.mp4))
 - **[DevConf.CZ 2020](https://devconfcz2020a.sched.com/)** (24/01/2020 - 26/01/2020)
     - **[Cognitive biases, blindspots and inclusion](https://devconfcz2020a.sched.com/event/YOoH/cognitive-biases-blindspots-and-inclusion)** ([slides](https://static.sched.com/hosted_files/devconfcz2020a/da/Cognitive%20biases%2C%20blind%20spots%20and%20inclusion.pdf), [recording](https://www.youtube.com/watch?v=HB6pLEJTJaA))
-- **[FlawCon 2019](https://2019.flawcon.xyz/)** (20/10/2019)
+- **[FlawCon 2019 🗄️](https://web.archive.org/web/20191120085343/https://2019.flawcon.xyz/ "Archived copy - the original page is gone")** (20/10/2019)
     - **This DoS goes loop-di-loop - Preventing DoS attacks in your Node.js application** ([slides](https://www.slideshare.net/AllonMureinik/this-dos-goes-loopdiloop))
 - **[DevConf.US 2019](https://devconfus2019.sched.com/)** (15/08/2019 - 17/08/2019)
     - **[How open source made me a better manager](https://devconfus2019.sched.com/event/RFDl/how-open-source-made-me-a-better-manager)** ([slides](https://static.sched.com/hosted_files/devconfus2019/8f/How%20open%20source%20made%20me%20a%20better%20manager.pdf), [recording](https://www.youtube.com/watch?v=6IYKnLIRttU))
 - **[DevConf.CZ 2019](https://devconfcz2019.sched.com)** (25/01/2019 - 27/01/2019)
     - **How open source made me a better developer** ([slides](https://www.slideshare.net/AllonMureinik/how-working-on-open-source-made-me-a-better-closed-source-developer), [recording](https://www.youtube.com/watch?v=W9afb-1QQxc))
-- **[August Penguin 2018](http://ap.hamakor.org.il/2018/en/index.html)** (09/11/2018)
+- **[August Penguin 2018 🗄️](https://web.archive.org/web/20181026140149/http://ap.hamakor.org.il/2018/en/index.html "Archived copy - the original page is gone")** (09/11/2018)
     - **How working on open source made me a better closed source developer** (Hebrew) ([slides](https://www.slideshare.net/AllonMureinik/how-working-on-open-source-made-me-a-better-closed-source-developer))
 - **[DevConf.US 2018](https://devconfus2018.sched.com/)** (17/08/2018 - 19/08/2018)
     - **Automatic for the People** ([slides](https://www.slideshare.net/AllonMureinik/automatic-for-the-people-110570873))
@@ -67,13 +67,13 @@ Talks are listed in reverse chronological order. In case a talk was given in sev
     - **Automatic for the People** ([slides](https://www.slideshare.net/AllonMureinik/automatic-for-the-people))
     - **Mockito - How a mocking library built a real community** ([slides](https://www.slideshare.net/AllonMureinik/mockito-how-a-mocking-library-built-a-real-community))
     - **Ja-WAT?!**
-- **[August Penguin 2017](http://ap.hamakor.org.il/2017/en.)** (07/09/2017 - 08/09/2017)
+- **[August Penguin 2017 🗄️](https://web.archive.org/web/20171029112538/http://ap.hamakor.org.il/2017/en/ "Archived copy - the original page is gone")** (07/09/2017 - 08/09/2017)
     - **Mockito - How virtual objects created a real community** (Hebrew) ([slides](http://www.slideshare.net/AllonMureinik/mockito-how-a-mocking-library-built-a-real-community-august-penguin-2017))
 - **[Reversim Summit 2016](https://summit2016.reversim.com/)** (19/09/2017 - 20/09/2016)
     - **Ja-WAT?!** (Hebrew) ([slides](https://www.slideshare.net/AllonMureinik/reversim-summit-2016-jawat), [recording](https://www.youtube.com/watch?v=SU0o6F_f_WA))
 - **[DevConf.CZ 2016](https://devconfcz2016.sched.com/)** (05/02/2016 - 07/02/2016)
     - **A Closed Source Developer's Journey into Openness** ([slides](https://www.slideshare.net/AllonMureinik/a-closed-source-developers-journey-into-openness), [recording](https://www.youtube.com/watch?v=L8LWYr3xLLg))
-- **[August Penguin 2015](http://ap.hamakor.org.il/2015/)** (07/08/2015)
+- **[August Penguin 2015 🗄️](https://web.archive.org/web/20151209090317/http://ap.hamakor.org.il/2015/ "Archived copy - the original page is gone")** (07/08/2015)
     - **Introduction to oVirt** (Hebrew) ([slides](https://www.slideshare.net/AllonMureinik/introduction-to-ovirtaugustpenguin2015))
 - **DevConf.CZ 2015** (06/02/2015 - 08/02/2015)
     - **Step by Step - Reusing old features to build new ones** ([slides](https://www.slideshare.net/AllonMureinik/step-bystep-ovirtlivemerge), [recording](https://www.youtube.com/watch?v=GJzWjc9Yu7E))
@@ -81,7 +81,7 @@ Talks are listed in reverse chronological order. In case a talk was given in sev
     - **Disaster Recovery Strategies Using oVirt's new Storage Connection Management Features** ([slides](https://www.slideshare.net/AllonMureinik/dev-conf-ovirt-dr))
 - **DevConTLV 2014** (30/01/2014)
     - **Retro Testing** (Hebrew) ([slides](https://www.slideshare.net/AllonMureinik/dev-con-retro-testing))
-- **[August Penguin 2013](http://ap.hamakor.org.il/2013/)** (02/08/2013)
-    - **Java Unit Testing 101** (Hebrew) ([slides](http://ap.hamakor.org.il/2013/slides/JU.svg), [recording](https://www.youtube.com/watch?v=XmFk_x66T5Q))
+- **[August Penguin 2013 🗄️](https://web.archive.org/web/20150714001830/http://ap.hamakor.org.il/2013/ "Archived copy - the original page is gone")** (02/08/2013)
+    - **Java Unit Testing 101** (Hebrew) ([slides 🗄️](https://web.archive.org/web/20151113041525/http://ap.hamakor.org.il/2013/slides/JU.svg "Archived copy - the original page is gone"), [recording](https://www.youtube.com/watch?v=XmFk_x66T5Q))
 - **[Open Storage Meetup 2013](https://www.meetup.com/open-source-israel/events/115553302)** (06/05/2013)
     - **Live Storage Migration in oVirt** ([slides](https://www.slideshare.net/slideshow/live-storage-migration-open-meetup/30717220))

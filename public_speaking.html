@@ -274,6 +274,15 @@
       font-weight: 600;
     }
 
+    .talk-link.archived,
+    .talk-conference.archived,
+    .talk-title a.archived {
+      text-decoration: underline dashed;
+      text-underline-offset: 2px;
+      opacity: 0.75;
+      cursor: help;
+    }
+
     .login-badge {
       display: inline-block;
       padding: 0.2rem 0.5rem;
@@ -471,6 +480,24 @@
     let currentConferenceFilter = null;
     let currentYearFilter = null;
 
+    // Links listed in a talk's "archived" map point at hosts that are gone for
+    // good; the value is the Wayback Machine timestamp to serve the copy from.
+    const ARCHIVE_MARKER = '\u{1F5C4}\uFE0F';
+    const ARCHIVE_TITLE = 'Archived copy - the original page is gone';
+
+    const snapshot = (talk, field) => (talk.archived || {})[field];
+    const linkUrl = (talk, field) => {
+      const ts = snapshot(talk, field);
+      return ts ? `https://web.archive.org/web/${ts}/${talk[field]}` : talk[field];
+    };
+    const linkAttrs = (talk, field, cls) => {
+      const classes = [cls, snapshot(talk, field) ? 'archived' : ''].filter(Boolean).join(' ');
+      const title = snapshot(talk, field) ? ` title="${ARCHIVE_TITLE}"` : '';
+      return `${classes ? ` class="${classes}"` : ''}${title}`;
+    };
+    const linkLabel = (talk, field, label) =>
+      snapshot(talk, field) ? `${label} ${ARCHIVE_MARKER}` : label;
+
     function buildTagWeights(talks) {
       const tagCount = {};
       talks.forEach(talk => {
@@ -571,7 +598,7 @@
         const year = new Date(talk.date).getFullYear();
         const displayConference = talk.subname || `${talk.conference} ${year}`;
         if (talk.conferenceUrl) {
-          headerHTML += `<a href="${talk.conferenceUrl}" class="talk-conference">${escapeHtml(displayConference)}</a>`;
+          headerHTML += `<a href="${linkUrl(talk, 'conferenceUrl')}"${linkAttrs(talk, 'conferenceUrl', 'talk-conference')}>${linkLabel(talk, 'conferenceUrl', escapeHtml(displayConference))}</a>`;
         } else {
           headerHTML += `<span class="talk-conference">${escapeHtml(displayConference)}</span>`;
         }
@@ -586,21 +613,23 @@
 
         let titleHTML = `<div class="talk-title">`;
         if (talk.talkUrl) {
-          titleHTML += `<a href="${talk.talkUrl}">${escapeHtml(talk.title)}</a>`;
+          titleHTML += `<a href="${linkUrl(talk, 'talkUrl')}"${linkAttrs(talk, 'talkUrl', '')}>${linkLabel(talk, 'talkUrl', escapeHtml(talk.title))}</a>`;
         } else {
           titleHTML += escapeHtml(talk.title);
         }
         titleHTML += `</div>`;
 
         let metaHTML = `<div class="talk-meta">`;
+        const mediaLink = (field, label) =>
+          `<a href="${linkUrl(talk, field)}"${linkAttrs(talk, field, 'talk-link')}>${linkLabel(talk, field, label)}</a>`;
         if (talk.slides) {
-          metaHTML += `<a href="${talk.slides}" class="talk-link">📊 Slides</a>`;
+          metaHTML += mediaLink('slides', '📊 Slides');
         }
         if (talk.recording) {
-          metaHTML += `<a href="${talk.recording}" class="talk-link">🎬 Recording</a>`;
+          metaHTML += mediaLink('recording', '🎬 Recording');
         }
         if (talk.code) {
-          metaHTML += `<a href="${talk.code}" class="talk-link">💻 Code</a>`;
+          metaHTML += mediaLink('code', '💻 Code');
         }
         metaHTML += `</div>`;
 

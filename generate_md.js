@@ -13,7 +13,26 @@ const talks = data.talks;
 // Markdown has no hover of its own, but GitHub renders link titles as tooltips.
 const LOGIN_MARKER = '\u{1F512}';
 const LOGIN_TITLE = 'Requires a login to view';
-const linkTitle = (talk) => (talk.requiresLogin ? ` "${LOGIN_TITLE}"` : '');
+
+// Links listed in a talk's "archived" map point at hosts that are gone for
+// good; the value is the Wayback Machine timestamp to serve the copy from.
+const ARCHIVE_MARKER = '\u{1F5C4}\uFE0F';
+const ARCHIVE_TITLE = 'Archived copy - the original page is gone';
+
+const snapshot = (talk, field) => (talk.archived || {})[field];
+const linkUrl = (talk, field) => {
+  const ts = snapshot(talk, field);
+  return ts ? `https://web.archive.org/web/${ts}/${talk[field]}` : talk[field];
+};
+// requiresLogin describes the conference's own pages, not third-party media
+// links (a gated talk's slides can still sit on a public SlideShare).
+const GATED_FIELDS = ['conferenceUrl', 'talkUrl'];
+const linkTitle = (talk, field) => {
+  if (snapshot(talk, field)) return ` "${ARCHIVE_TITLE}"`;
+  return talk.requiresLogin && GATED_FIELDS.includes(field) ? ` "${LOGIN_TITLE}"` : '';
+};
+const linkLabel = (talk, field, label) =>
+  snapshot(talk, field) ? `${label} ${ARCHIVE_MARKER}` : label;
 
 let md = `### Public Speaking
 
@@ -38,7 +57,7 @@ talks.forEach((talk) => {
       : talk.dateDisplay;
 
     if (talk.conferenceUrl) {
-      md += `- **[${confName}](${talk.conferenceUrl}${linkTitle(talk)})** (${dateRange})\n`;
+      md += `- **[${linkLabel(talk, 'conferenceUrl', confName)}](${linkUrl(talk, 'conferenceUrl')}${linkTitle(talk, 'conferenceUrl')})** (${dateRange})\n`;
     } else {
       md += `- **${confName}** (${dateRange})\n`;
     }
@@ -47,7 +66,7 @@ talks.forEach((talk) => {
   // Add talk entry
   let talkLine = '    - **';
   if (talk.talkUrl) {
-    talkLine += `[${talk.title}](${talk.talkUrl}${linkTitle(talk)})`;
+    talkLine += `[${linkLabel(talk, 'talkUrl', talk.title)}](${linkUrl(talk, 'talkUrl')}${linkTitle(talk, 'talkUrl')})`;
   } else {
     talkLine += talk.title;
   }
@@ -63,9 +82,11 @@ talks.forEach((talk) => {
 
   // Add media links
   const links = [];
-  if (talk.slides) links.push(`[slides](${talk.slides})`);
-  if (talk.recording) links.push(`[recording](${talk.recording})`);
-  if (talk.code) links.push(`[code samples](${talk.code})`);
+  const mediaLink = (field, label) =>
+    `[${linkLabel(talk, field, label)}](${linkUrl(talk, field)}${linkTitle(talk, field)})`;
+  if (talk.slides) links.push(mediaLink('slides', 'slides'));
+  if (talk.recording) links.push(mediaLink('recording', 'recording'));
+  if (talk.code) links.push(mediaLink('code', 'code samples'));
 
   if (links.length > 0) {
     talkLine += ` (${links.join(', ')})`;
