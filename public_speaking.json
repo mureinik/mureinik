@@ -193,7 +193,7 @@
       "conference": "BrightTALK Webinar",
       "conferenceUrl": null,
       "title": "What I Wish I Knew About Security When I Started Programming",
-      "talkUrl": "https://www.brighttalk.com/webcast/13983/541479",
+      "talkUrl": null,
       "date": "2022-06-09",
       "dateDisplay": "09/06/2022",
       "dateEnd": "2022-06-09",
@@ -339,7 +339,11 @@
         "Security"
       ],
       "subname": "",
-      "language": "English"
+      "language": "English",
+      "archived": {
+        "conferenceUrl": "20211118161326",
+        "talkUrl": "20211116164640"
+      }
     },
     {
       "id": "techstrongcon-2021",
@@ -455,7 +459,10 @@
         "Security"
       ],
       "subname": "",
-      "language": "English"
+      "language": "English",
+      "archived": {
+        "talkUrl": "20201209072234"
+      }
     },
     {
       "id": "brighttalk-2020-02",
@@ -475,7 +482,10 @@
         "Career"
       ],
       "subname": "",
-      "language": "English"
+      "language": "English",
+      "archived": {
+        "talkUrl": "20201208071823"
+      }
     },
     {
       "id": "fosdem-2020",
@@ -535,7 +545,10 @@
         "Security"
       ],
       "subname": "",
-      "language": "English"
+      "language": "English",
+      "archived": {
+        "conferenceUrl": "20191120085343"
+      }
     },
     {
       "id": "devconfus-2019",
@@ -593,7 +606,10 @@
         "Career"
       ],
       "subname": "",
-      "language": "Hebrew"
+      "language": "Hebrew",
+      "archived": {
+        "conferenceUrl": "20181026140149"
+      }
     },
     {
       "id": "devconfus-2018",
@@ -674,7 +690,7 @@
     {
       "id": "august-penguin-2017",
       "conference": "August Penguin",
-      "conferenceUrl": "http://ap.hamakor.org.il/2017/en.",
+      "conferenceUrl": "http://ap.hamakor.org.il/2017/en/",
       "title": "Mockito - How virtual objects created a real community",
       "talkUrl": null,
       "date": "2017-09-07",
@@ -689,7 +705,10 @@
         "Java"
       ],
       "subname": "",
-      "language": "Hebrew"
+      "language": "Hebrew",
+      "archived": {
+        "conferenceUrl": "20171029112538"
+      }
     },
     {
       "id": "reversim-2016",
@@ -744,7 +763,10 @@
         "oVirt"
       ],
       "subname": "",
-      "language": "Hebrew"
+      "language": "Hebrew",
+      "archived": {
+        "conferenceUrl": "20151209090317"
+      }
     },
     {
       "id": "devconfcz-2015",
@@ -819,7 +841,11 @@
         "Java"
       ],
       "subname": "",
-      "language": "Hebrew"
+      "language": "Hebrew",
+      "archived": {
+        "conferenceUrl": "20150714001830",
+        "slides": "20151113041525"
+      }
     },
     {
       "id": "open-storage-meetup-2013",
