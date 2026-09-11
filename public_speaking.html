@@ -282,7 +282,6 @@
       border-radius: 3px;
       font-size: 0.75rem;
       font-weight: 600;
-      cursor: help;
     }
 
     .talk-title {
@@ -472,9 +471,6 @@
     let currentConferenceFilter = null;
     let currentYearFilter = null;
 
-    // Hover text for talks whose links are only reachable to a signed-in visitor.
-    const LOGIN_TITLE = 'Requires a login to view';
-
     function buildTagWeights(talks) {
       const tagCount = {};
       talks.forEach(talk => {
@@ -584,7 +580,7 @@
           headerHTML += `<span class="hebrew-badge">Hebrew</span>`;
         }
         if (talk.requiresLogin) {
-          headerHTML += `<span class="login-badge" title="${LOGIN_TITLE}">\u{1F512} Login required</span>`;
+          headerHTML += `<span class="login-badge">\u{1F512} Login required</span>`;
         }
         headerHTML += `</div>`;
 
