@@ -39,7 +39,7 @@ Talks are listed in reverse chronological order. In case a talk was given in sev
 - **[TechStrongCon 2021](https://www.mediaopsevents.com/techstrongcon)** (14/07/2021 - 15/07/2021)
     - **Abracadabra, now everyone's a remotee!** ([recording](https://vimeo.com/digitalanarchist/download/571734205/18152352d3))
 - **[DevConf.CZ 2021](https://devconfcz2021.sched.com/)** (18/02/2021 - 20/02/2021)
-    - **Zoom Out!** ([slides](https://www.slideshare.net/AllonMureinik/zoom-out-246027668/AllonMureinik/zoom-out-246027668), [recording](https://www.youtube.com/watch?v=peZmUf8RUw0))
+    - **Zoom Out!** ([slides](https://www.slideshare.net/AllonMureinik/zoom-out-246027668), [recording](https://www.youtube.com/watch?v=peZmUf8RUw0))
 - **[FOSDEM 2021](https://fosdem.org/2021/)** (06/02/2021 - 07/02/2021)
     - **[Abracadabra, now everyone's a remotee!](https://fosdem.org/2021/schedule/event/community_devroom_abracadabra_everyones_remote/)** ([slides](https://fosdem.org/2021/schedule/event/community_devroom_abracadabra_everyones_remote/attachments/slides/4546/export/events/attachments/community_devroom_abracadabra_everyones_remote/slides/4546/Abracadbra.pdf), [recording](https://video.fosdem.org/2021/D.community/community_devroom_abracadabra_everyones_remote.webm))
     - **[This DoS goes loop-di-loop - Preventing DoS attacks in your Node.js application](https://fosdem.org/2021/schedule/event/dos/)** ([slides](https://fosdem.org/2021/schedule/event/dos/attachments/slides/4548/export/events/attachments/dos/slides/4548/This_dos_goes_loop_di_loop_slides.pdf), [recording](https://video.fosdem.org/2021/D.javascript/dos.webm))
