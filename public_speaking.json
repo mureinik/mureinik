@@ -343,7 +343,7 @@
     {
       "id": "techstrongcon-2021",
       "conference": "TechStrongCon",
-      "conferenceUrl": "https://www.mediaopsevents.com/techstrongcon",
+      "conferenceUrl": "https://techstrongevents.com/",
       "title": "Abracadabra, now everyone's a remotee!",
       "talkUrl": null,
       "date": "2021-07-14",
@@ -368,7 +368,7 @@
       "date": "2021-02-18",
       "dateDisplay": "18/02/2021",
       "dateEnd": "2021-02-20",
-      "slides": "https://www.slideshare.net/AllonMureinik/zoom-out-246027668/AllonMureinik/zoom-out-246027668",
+      "slides": "https://www.slideshare.net/AllonMureinik/zoom-out-246027668",
       "recording": "https://www.youtube.com/watch?v=peZmUf8RUw0",
       "code": null,
       "tags": [
@@ -406,7 +406,7 @@
       "date": "2021-02-06",
       "dateDisplay": "06/02/2021",
       "dateEnd": "2021-02-07",
-      "slides": "https://fosdem.org/2021/schedule/event/dos/attachments/audio/4548/export/events/attachments/dos/audio/4548/This_dos_goes_loop_di_loop_slides.pdf",
+      "slides": "https://fosdem.org/2021/schedule/event/dos/attachments/slides/4548/export/events/attachments/dos/slides/4548/This_dos_goes_loop_di_loop_slides.pdf",
       "recording": "https://video.fosdem.org/2021/D.javascript/dos.webm",
       "code": null,
       "tags": [
