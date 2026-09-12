@@ -1,0 +1,46 @@
+#!/bin/sh
+#
+# Keeps public_speaking.md in step with public_speaking.json.
+#
+# When a commit touches the talks data, regenerate the markdown and include it
+# in that same commit, so the generated file can never lag behind its source.
+#
+# Install once per clone:
+#
+#     git config core.hooksPath scripts/hooks
+#
+# Bypass for a single commit with `git commit --no-verify`.
+
+set -e
+
+DATA='public_speaking.json'
+GENERATED='public_speaking.md'
+
+# Nothing to do unless the talks data is part of this commit. A deletion is
+# excluded deliberately: there would be nothing left to generate from.
+if ! git diff --cached --name-only --diff-filter=ACMR | grep -qx "$DATA"; then
+  exit 0
+fi
+
+# The generator reads the working tree, not the index. If the data file is only
+# partially staged, the markdown it produces would describe talks that are not
+# in this commit, which is the very drift this hook exists to prevent.
+if ! git diff --quiet -- "$DATA"; then
+  echo "pre-commit: $DATA has unstaged changes." >&2
+  echo "  Regenerating now would put a $GENERATED in this commit that does not" >&2
+  echo "  match its $DATA. Stage the rest of the file (or stash it) and retry." >&2
+  exit 1
+fi
+
+if ! command -v node >/dev/null 2>&1; then
+  echo "pre-commit: node is needed to regenerate $GENERATED, but is not on PATH." >&2
+  echo "  Install node, or commit with --no-verify and regenerate by hand." >&2
+  exit 1
+fi
+
+node "$(git rev-parse --show-toplevel)/scripts/generate_md.js" >/dev/null
+
+if ! git diff --quiet -- "$GENERATED"; then
+  git add -- "$GENERATED"
+  echo "pre-commit: regenerated $GENERATED and added it to this commit."
+fi
