@@ -62,6 +62,21 @@ made with `--no-verify`.
 Note that `core.hooksPath` redirects *all* hooks to `scripts/hooks`, so anything
 you had in `.git/hooks` stops running.
 
+## Keeping the workflow's pins current
+
+`.github/dependabot.yml` opens a daily pull request when a newer version of an
+action used in a workflow is released.
+
+It covers the `uses:` lines and nothing else. Dependabot has no ecosystem for
+GitHub Actions runner images or for a Node.js runtime version, so the two other
+pins in `.github/workflows/talks-markdown.yml` — `runs-on: ubuntu-24.04` and
+`node-version` — are bumped by hand.
+
+When bumping the Node version, check that the generator still produces
+byte-identical output under it before merging: the CI check compares generator
+output, and the generator formats dates through `toLocaleDateString('en-GB', …)`,
+which depends on the runtime's ICU data.
+
 The two renderers share no code, so a change to how talks display usually has to
 be made twice, once in each. Keeping them in step is manual.
 

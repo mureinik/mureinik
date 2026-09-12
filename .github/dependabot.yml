@@ -1,0 +1,18 @@
+version: 2
+
+# Dependabot's github-actions ecosystem updates the `uses:` references in
+# .github/workflows only. It does not touch the `runs-on:` runner image or the
+# `node-version:` passed to actions/setup-node - there is no ecosystem for
+# either - so those two pins are still bumped by hand.
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+    # One pull request for the lot, rather than one per action.
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+    commit-message:
+      prefix: Update
