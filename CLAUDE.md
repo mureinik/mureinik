@@ -27,6 +27,24 @@ node scripts/generate_md.js
 Commit the regenerated `public_speaking.md` together with the change that caused
 it, so the two never drift apart.
 
+A pre-commit hook does this for you, once installed. It is tracked at
+`scripts/hooks/pre-commit`, and each clone opts in once:
+
+```sh
+git config core.hooksPath scripts/hooks
+```
+
+From then on, any commit that touches `public_speaking.json` regenerates the
+markdown and adds it to that same commit. Commits that do not touch the data are
+left alone, and `git commit --no-verify` skips the hook entirely.
+
+Two cases make the hook stop the commit rather than guess: `public_speaking.json`
+being only partially staged, which would produce a markdown file describing talks
+that are not in the commit, and `node` not being on `PATH`.
+
+Note that `core.hooksPath` redirects *all* hooks to `scripts/hooks`, so anything
+you had in `.git/hooks` stops running.
+
 The two renderers share no code, so a change to how talks display usually has to
 be made twice, once in each. Keeping them in step is manual.
 
