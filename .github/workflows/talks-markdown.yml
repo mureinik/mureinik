@@ -1,0 +1,43 @@
+name: Talks markdown
+
+# public_speaking.md is generated from public_speaking.json by
+# scripts/generate_md.js. This verifies the committed markdown matches what the
+# generator produces, so a pull request cannot change a source and leave the
+# rendered list behind.
+#
+# The check only reports: it regenerates into the runner's workspace to compare,
+# and never commits or pushes the result. Fixing a failure is the author's job -
+# run `node scripts/generate_md.js` locally and commit the result.
+
+on:
+  pull_request:
+    paths:
+      - public_speaking.json
+      - scripts/generate_md.js
+      - public_speaking.md
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-generated-markdown:
+    name: public_speaking.md is up to date
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '26.8.2'
+
+      - name: Regenerate the markdown
+        run: node scripts/generate_md.js
+
+      - name: Compare against the committed file
+        run: |
+          if ! git diff --exit-code -- public_speaking.md; then
+            echo "::error file=public_speaking.md::public_speaking.md does not match what scripts/generate_md.js produces from public_speaking.json. Run 'node scripts/generate_md.js' and commit the result."
+            exit 1
+          fi
+          echo "public_speaking.md matches the generator output."
