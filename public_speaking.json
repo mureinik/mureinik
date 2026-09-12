@@ -224,7 +224,10 @@
       ],
       "subname": "",
       "language": "English",
-      "requiresLogin": true
+      "requiresLogin": [
+        "conferenceUrl",
+        "talkUrl"
+      ]
     },
     {
       "id": "dbi-2022",

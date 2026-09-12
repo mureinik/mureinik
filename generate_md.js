@@ -9,7 +9,9 @@ const mdPath = path.join(__dirname, 'public_speaking.md');
 const data = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
 const talks = data.talks;
 
-// Talks flagged with requiresLogin are only reachable to a signed-in visitor.
+// Both "requiresLogin" and "archived" name the individual links they apply to,
+// rather than the whole talk: a talk can pair a gated conference page with a
+// public SlideShare deck, or a dead one with a live recording.
 // Markdown has no hover of its own, but GitHub renders link titles as tooltips.
 const LOGIN_MARKER = '\u{1F512}';
 const LOGIN_TITLE = 'Requires a login to view';
@@ -20,19 +22,20 @@ const ARCHIVE_MARKER = '\u{1F5C4}\uFE0F';
 const ARCHIVE_TITLE = 'Archived copy - the original page is gone';
 
 const snapshot = (talk, field) => (talk.archived || {})[field];
+const isGated = (talk, field) => (talk.requiresLogin || []).includes(field);
 const linkUrl = (talk, field) => {
   const ts = snapshot(talk, field);
   return ts ? `https://web.archive.org/web/${ts}/${talk[field]}` : talk[field];
 };
-// requiresLogin describes the conference's own pages, not third-party media
-// links (a gated talk's slides can still sit on a public SlideShare).
-const GATED_FIELDS = ['conferenceUrl', 'talkUrl'];
+// A gone page outranks a gated one: no login gets you into a host that is down.
 const linkTitle = (talk, field) => {
   if (snapshot(talk, field)) return ` "${ARCHIVE_TITLE}"`;
-  return talk.requiresLogin && GATED_FIELDS.includes(field) ? ` "${LOGIN_TITLE}"` : '';
+  return isGated(talk, field) ? ` "${LOGIN_TITLE}"` : '';
 };
-const linkLabel = (talk, field, label) =>
-  snapshot(talk, field) ? `${label} ${ARCHIVE_MARKER}` : label;
+const linkLabel = (talk, field, label) => {
+  if (snapshot(talk, field)) return `${label} ${ARCHIVE_MARKER}`;
+  return isGated(talk, field) ? `${label} ${LOGIN_MARKER}` : label;
+};
 
 let md = `### Public Speaking
 
@@ -71,10 +74,6 @@ talks.forEach((talk) => {
     talkLine += talk.title;
   }
   talkLine += '**';
-
-  if (talk.requiresLogin) {
-    talkLine += ` ${LOGIN_MARKER}`;
-  }
 
   if (talk.language === 'Hebrew') {
     talkLine += ' (Hebrew)';

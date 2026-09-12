@@ -276,21 +276,19 @@
 
     .talk-link.archived,
     .talk-conference.archived,
-    .talk-title a.archived {
+    .talk-title a.archived,
+    .talk-link.gated,
+    .talk-conference.gated,
+    .talk-title a.gated {
       text-decoration: underline dashed;
       text-underline-offset: 2px;
-      opacity: 0.75;
       cursor: help;
     }
 
-    .login-badge {
-      display: inline-block;
-      padding: 0.2rem 0.5rem;
-      background: var(--accent-3);
-      color: var(--bg);
-      border-radius: 3px;
-      font-size: 0.75rem;
-      font-weight: 600;
+    .talk-link.archived,
+    .talk-conference.archived,
+    .talk-title a.archived {
+      opacity: 0.75;
     }
 
     .talk-title {
@@ -480,23 +478,36 @@
     let currentConferenceFilter = null;
     let currentYearFilter = null;
 
-    // Links listed in a talk's "archived" map point at hosts that are gone for
-    // good; the value is the Wayback Machine timestamp to serve the copy from.
+    // Both "requiresLogin" and "archived" name the individual links they apply
+    // to, rather than the whole talk: a talk can pair a gated conference page
+    // with a public SlideShare deck, or a dead one with a live recording.
     const ARCHIVE_MARKER = '\u{1F5C4}\uFE0F';
     const ARCHIVE_TITLE = 'Archived copy - the original page is gone';
+    const LOGIN_MARKER = '\u{1F512}';
+    const LOGIN_TITLE = 'Requires a login to view';
 
     const snapshot = (talk, field) => (talk.archived || {})[field];
+    const isGated = (talk, field) => (talk.requiresLogin || []).includes(field);
     const linkUrl = (talk, field) => {
       const ts = snapshot(talk, field);
       return ts ? `https://web.archive.org/web/${ts}/${talk[field]}` : talk[field];
     };
+    // A gone page outranks a gated one: no login gets you into a host that is down.
+    const linkState = (talk, field) => {
+      if (snapshot(talk, field)) return { cls: 'archived', title: ARCHIVE_TITLE, marker: ARCHIVE_MARKER };
+      if (isGated(talk, field)) return { cls: 'gated', title: LOGIN_TITLE, marker: LOGIN_MARKER };
+      return null;
+    };
     const linkAttrs = (talk, field, cls) => {
-      const classes = [cls, snapshot(talk, field) ? 'archived' : ''].filter(Boolean).join(' ');
-      const title = snapshot(talk, field) ? ` title="${ARCHIVE_TITLE}"` : '';
+      const state = linkState(talk, field);
+      const classes = [cls, state ? state.cls : ''].filter(Boolean).join(' ');
+      const title = state ? ` title="${state.title}"` : '';
       return `${classes ? ` class="${classes}"` : ''}${title}`;
     };
-    const linkLabel = (talk, field, label) =>
-      snapshot(talk, field) ? `${label} ${ARCHIVE_MARKER}` : label;
+    const linkLabel = (talk, field, label) => {
+      const state = linkState(talk, field);
+      return state ? `${label} ${state.marker}` : label;
+    };
 
     function buildTagWeights(talks) {
       const tagCount = {};
@@ -605,9 +616,6 @@
         headerHTML += `<span class="talk-date">${talk.dateDisplay}</span>`;
         if (talk.language === 'Hebrew') {
           headerHTML += `<span class="hebrew-badge">Hebrew</span>`;
-        }
-        if (talk.requiresLogin) {
-          headerHTML += `<span class="login-badge">\u{1F512} Login required</span>`;
         }
         headerHTML += `</div>`;
 
