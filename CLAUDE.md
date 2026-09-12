@@ -34,13 +34,22 @@ A pre-commit hook does this for you, once installed. It is tracked at
 git config core.hooksPath scripts/hooks
 ```
 
-From then on, any commit that touches `public_speaking.json` regenerates the
-markdown and adds it to that same commit. Commits that do not touch the data are
-left alone, and `git commit --no-verify` skips the hook entirely.
+`public_speaking.md` has exactly one legitimate reason to change — a source
+changed — and the hook enforces that from both directions:
 
-Two cases make the hook stop the commit rather than guess: `public_speaking.json`
-being only partially staged, which would produce a markdown file describing talks
-that are not in the commit, and `node` not being on `PATH`.
+- A commit touching `public_speaking.json` **or** `scripts/generate_md.js`
+  regenerates the markdown and adds it to that same commit.
+- A commit touching `public_speaking.md` on its own is **refused**, since a
+  hand-edit there is undone by the next regeneration.
+
+Commits touching none of the three are left alone, and `git commit --no-verify`
+skips the hook entirely — which is also the escape hatch for deliberately
+committing a `public_speaking.md` that had already drifted out of sync.
+
+Three cases make the hook stop the commit rather than guess: the markdown being
+committed on its own, either source having unstaged changes (the generator reads
+the working tree, so the output would not match the sources in the commit), and
+`node` not being on `PATH`.
 
 Note that `core.hooksPath` redirects *all* hooks to `scripts/hooks`, so anything
 you had in `.git/hooks` stops running.
