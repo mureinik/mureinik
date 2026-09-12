@@ -2,8 +2,11 @@
 #
 # Keeps public_speaking.md in step with public_speaking.json.
 #
-# When a commit touches the talks data, regenerate the markdown and include it
-# in that same commit, so the generated file can never lag behind its source.
+# public_speaking.md is generated, so it has exactly one legitimate reason to
+# change: one of its sources changed. This hook enforces that from both ends.
+#
+#   * A commit touching a source regenerates the markdown and includes it.
+#   * A commit touching the markdown alone is refused.
 #
 # Install once per clone:
 #
@@ -14,33 +17,56 @@
 set -e
 
 DATA='public_speaking.json'
+GENERATOR='scripts/generate_md.js'
 GENERATED='public_speaking.md'
 
-# Nothing to do unless the talks data is part of this commit. A deletion is
-# excluded deliberately: there would be nothing left to generate from.
-if ! git diff --cached --name-only --diff-filter=ACMR | grep -qx "$DATA"; then
+# A deletion is excluded deliberately: there would be nothing to generate from.
+is_staged() {
+  git diff --cached --name-only --diff-filter=ACMR | grep -qx "$1"
+}
+
+has_unstaged_changes() {
+  ! git diff --quiet -- "$1"
+}
+
+if is_staged "$DATA" || is_staged "$GENERATOR"; then
+  # The generator reads the working tree, not the index. If either source has
+  # uncommitted changes, the markdown it produces would not match the sources
+  # in this commit, which is the drift this hook exists to prevent.
+  for source in "$DATA" "$GENERATOR"; do
+    if has_unstaged_changes "$source"; then
+      echo "pre-commit: $source has unstaged changes." >&2
+      echo "  Regenerating now would put a $GENERATED in this commit that does" >&2
+      echo "  not match its sources. Stage the rest (or stash it) and retry." >&2
+      exit 1
+    fi
+  done
+
+  if ! command -v node >/dev/null 2>&1; then
+    echo "pre-commit: node is needed to regenerate $GENERATED, but is not on PATH." >&2
+    echo "  Install node, or commit with --no-verify and regenerate by hand." >&2
+    exit 1
+  fi
+
+  node "$(git rev-parse --show-toplevel)/$GENERATOR" >/dev/null
+
+  if ! git diff --quiet -- "$GENERATED"; then
+    git add -- "$GENERATED"
+    echo "pre-commit: regenerated $GENERATED and added it to this commit."
+  fi
+
   exit 0
 fi
 
-# The generator reads the working tree, not the index. If the data file is only
-# partially staged, the markdown it produces would describe talks that are not
-# in this commit, which is the very drift this hook exists to prevent.
-if ! git diff --quiet -- "$DATA"; then
-  echo "pre-commit: $DATA has unstaged changes." >&2
-  echo "  Regenerating now would put a $GENERATED in this commit that does not" >&2
-  echo "  match its $DATA. Stage the rest of the file (or stash it) and retry." >&2
+# Reaching here means no source is part of this commit, so the generated file
+# has no reason to differ. Editing it by hand is silently undone by the next
+# regeneration, so refuse rather than let the change look durable.
+if is_staged "$GENERATED"; then
+  echo "pre-commit: $GENERATED is generated, but is being committed on its own." >&2
+  echo "  It is produced from $DATA by $GENERATOR, so edit one of those and let" >&2
+  echo "  the markdown be regenerated - a hand-edit here is lost on the next run." >&2
+  echo >&2
+  echo "  If you are deliberately repairing a $GENERATED that drifted out of" >&2
+  echo "  sync, commit it with --no-verify." >&2
   exit 1
-fi
-
-if ! command -v node >/dev/null 2>&1; then
-  echo "pre-commit: node is needed to regenerate $GENERATED, but is not on PATH." >&2
-  echo "  Install node, or commit with --no-verify and regenerate by hand." >&2
-  exit 1
-fi
-
-node "$(git rev-parse --show-toplevel)/scripts/generate_md.js" >/dev/null
-
-if ! git diff --quiet -- "$GENERATED"; then
-  git add -- "$GENERATED"
-  echo "pre-commit: regenerated $GENERATED and added it to this commit."
 fi
