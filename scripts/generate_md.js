@@ -3,8 +3,10 @@
 const fs = require('fs');
 const path = require('path');
 
-const jsonPath = path.join(__dirname, 'public_speaking.json');
-const mdPath = path.join(__dirname, 'public_speaking.md');
+// This script lives in scripts/; the data it reads and writes sits at the root.
+const repoRoot = path.join(__dirname, '..');
+const jsonPath = path.join(repoRoot, 'public_speaking.json');
+const mdPath = path.join(repoRoot, 'public_speaking.md');
 
 const data = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
 const talks = data.talks;
