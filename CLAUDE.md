@@ -51,6 +51,14 @@ committed on its own, either source having unstaged changes (the generator reads
 the working tree, so the output would not match the sources in the commit), and
 `node` not being on `PATH`.
 
+The same invariant is enforced in CI by `.github/workflows/talks-markdown.yml`,
+which runs on any pull request touching one of the three files. It regenerates
+the markdown and fails if the result differs from what is committed. It only
+reports — it never commits or pushes a regenerated file, so fixing a failure
+means running the generator locally and committing the result. This is the
+backstop for clones that never ran the `core.hooksPath` install, and for commits
+made with `--no-verify`.
+
 Note that `core.hooksPath` redirects *all* hooks to `scripts/hooks`, so anything
 you had in `.git/hooks` stops running.
 
