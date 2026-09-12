@@ -15,13 +15,13 @@ A GitHub profile repo and the site published from it at
 | File | How it gets the data |
 |---|---|
 | `public_speaking.html` | `fetch('public_speaking.json')` at page load, rendered by its inline `<script>` |
-| `public_speaking.md` | **generated** by `generate_md.js`, and committed |
+| `public_speaking.md` | **generated** by `scripts/generate_md.js`, and committed |
 
-**Never hand-edit `public_speaking.md`** — the next `node generate_md.js`
+**Never hand-edit `public_speaking.md`** — the next `node scripts/generate_md.js`
 overwrites it. Edit the JSON (or the generator) and regenerate:
 
 ```sh
-node generate_md.js
+node scripts/generate_md.js
 ```
 
 Commit the regenerated `public_speaking.md` together with the change that caused
@@ -86,7 +86,7 @@ wins — no login gets you into a host that is down.
 
 There is no test suite and no `package.json`, so verification is manual.
 
-For a change to `generate_md.js`, run it and read the diff. It is deterministic:
+For a change to `scripts/generate_md.js`, run it and read the diff. It is deterministic:
 a second run on unchanged input produces an identical file.
 
 For a change to the rendering in `public_speaking.html`, the page fetches its
