@@ -16,3 +16,16 @@ updates:
           - "*"
     commit-message:
       prefix: Update
+
+  # The lint tooling in scripts/. Nothing here ships - these are devDependencies
+  # of a private package - so one grouped pull request is enough.
+  - package-ecosystem: npm
+    directory: /scripts
+    schedule:
+      interval: daily
+    groups:
+      eslint:
+        patterns:
+          - "*"
+    commit-message:
+      prefix: Update

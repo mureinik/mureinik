@@ -1,0 +1,44 @@
+name: Lint
+
+# scripts/ holds the repo's only JavaScript that is not embedded in a page, and
+# ESLint checks it against its own recommended rules plus eslint-plugin-n's
+# recommendations for CommonJS Node scripts. The rule sets are configured in
+# scripts/eslint.config.js; this workflow only runs them.
+#
+# The inline <script> in public_speaking.html is not covered. It is browser code
+# in a markup file, which neither of those rule sets fits.
+
+on:
+  pull_request:
+    paths:
+      - scripts/**
+      - .github/workflows/lint.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  eslint:
+    name: scripts/ passes ESLint
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: scripts
+    steps:
+      - uses: actions/checkout@v7.0.1
+
+      # Same pin as the markdown check reads, for the same reason: the lint runs
+      # on the Node the scripts declare. Paths here are workspace-relative, so
+      # they carry the scripts/ prefix despite the working-directory above.
+      - uses: actions/setup-node@v7.0.0
+        with:
+          node-version-file: scripts/package.json
+          cache: npm
+          cache-dependency-path: scripts/package-lock.json
+
+      - name: Install the tooling
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint

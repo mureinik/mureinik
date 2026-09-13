@@ -67,10 +67,10 @@ you had in `.git/hooks` stops running.
 `.github/dependabot.yml` opens a daily pull request when a newer version of an
 action used in a workflow is released.
 
-It covers the `uses:` lines and nothing else. Dependabot has no ecosystem for
+Its `github-actions` entry covers the `uses:` lines, and its `npm` entry covers
+the lint tooling in `scripts/package.json`. Dependabot has no ecosystem for
 GitHub Actions runner images or for a Node.js runtime version, so two pins are
-bumped by hand: `runs-on: ubuntu-24.04` in
-`.github/workflows/talks-markdown.yml`, and the Node version.
+bumped by hand: `runs-on: ubuntu-24.04` in the workflows, and the Node version.
 
 The Node version lives in one place, `engines.node` in `scripts/package.json`.
 The workflow does not repeat it — `actions/setup-node` reads it from there via
@@ -142,8 +142,27 @@ wins — no login gets you into a host that is down.
 ## Verifying a change
 
 There is no test suite, so verification is manual. `scripts/package.json` exists
-to pin the Node version and hold the tooling — it declares no runtime
+to pin the Node version and hold the lint tooling — it declares no runtime
 dependencies, and the generator itself needs no `npm install` to run.
+
+What is automated is the lint. `scripts/` is checked by ESLint against its own
+recommended rules plus `eslint-plugin-n`'s `flat/recommended-script`, the
+CommonJS half of that plugin's recommendation:
+
+```sh
+cd scripts && npm ci && npm run lint
+```
+
+`.github/workflows/lint.yml` runs exactly that on any pull request touching
+`scripts/`. The rules live in `scripts/eslint.config.js`; the workflow only runs
+them. The inline `<script>` in `public_speaking.html` is **not** linted — it is
+browser code inside a markup file, which neither rule set fits.
+
+Two consequences of `eslint-plugin-n` worth knowing before adding a script here.
+It reads a shebang as a claim that the file is an entry point, so a new
+executable script needs a matching `bin` entry in `scripts/package.json` or
+`n/hashbang` fails the build. And it resolves every `require()`, so a module
+that is not core and not a declared dependency fails too.
 
 For a change to `scripts/generate_md.js`, run it and read the diff. It is deterministic:
 a second run on unchanged input produces an identical file.
