@@ -68,14 +68,21 @@ you had in `.git/hooks` stops running.
 action used in a workflow is released.
 
 It covers the `uses:` lines and nothing else. Dependabot has no ecosystem for
-GitHub Actions runner images or for a Node.js runtime version, so the two other
-pins in `.github/workflows/talks-markdown.yml` — `runs-on: ubuntu-24.04` and
-`node-version` — are bumped by hand.
+GitHub Actions runner images or for a Node.js runtime version, so two pins are
+bumped by hand: `runs-on: ubuntu-24.04` in
+`.github/workflows/talks-markdown.yml`, and the Node version.
+
+The Node version lives in one place, `engines.node` in `scripts/package.json`.
+The workflow does not repeat it — `actions/setup-node` reads it from there via
+`node-version-file`, so CI runs the generator on the same Node the script
+declares. It is pinned to an exact version rather than a range on purpose; see
+below.
 
 When bumping the Node version, check that the generator still produces
-byte-identical output under it before merging: the CI check compares generator
-output, and the generator formats dates through `toLocaleDateString('en-GB', …)`,
-which depends on the runtime's ICU data.
+byte-identical output under it before merging: the generator formats dates
+through `toLocaleDateString('en-GB', …)`, which depends on the runtime's ICU
+data. A pull request touching `scripts/package.json` runs the markdown check for
+exactly this reason, so a bump that shifts the output fails there.
 
 The two renderers share no code, so a change to how talks display usually has to
 be made twice, once in each. Keeping them in step is manual.
@@ -134,7 +141,9 @@ wins — no login gets you into a host that is down.
 
 ## Verifying a change
 
-There is no test suite and no `package.json`, so verification is manual.
+There is no test suite, so verification is manual. `scripts/package.json` exists
+to pin the Node version and hold the tooling — it declares no runtime
+dependencies, and the generator itself needs no `npm install` to run.
 
 For a change to `scripts/generate_md.js`, run it and read the diff. It is deterministic:
 a second run on unchanged input produces an identical file.
