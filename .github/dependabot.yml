@@ -2,8 +2,8 @@ version: 2
 
 # Dependabot's github-actions ecosystem updates the `uses:` references in
 # .github/workflows only. It does not touch the `runs-on:` runner image or the
-# `node-version:` passed to actions/setup-node - there is no ecosystem for
-# either - so those two pins are still bumped by hand.
+# Node version in scripts/package.json's `engines.node` - there is no ecosystem
+# for either - so those two pins are still bumped by hand.
 updates:
   - package-ecosystem: github-actions
     directory: /
@@ -12,6 +12,19 @@ updates:
     # One pull request for the lot, rather than one per action.
     groups:
       github-actions:
+        patterns:
+          - "*"
+    commit-message:
+      prefix: Update
+
+  # The lint tooling in scripts/. Nothing here ships - these are devDependencies
+  # of a private package - so one grouped pull request is enough.
+  - package-ecosystem: npm
+    directory: /scripts
+    schedule:
+      interval: daily
+    groups:
+      eslint:
         patterns:
           - "*"
     commit-message:

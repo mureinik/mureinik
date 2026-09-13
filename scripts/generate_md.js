@@ -47,7 +47,6 @@ Talks are listed in reverse chronological order. In case a talk was given in sev
 
 // Group talks by conference + date for proper formatting
 let currentConf = null;
-let currentDate = null;
 
 talks.forEach((talk) => {
   const confKey = `${talk.conference}|${talk.dateDisplay}`;

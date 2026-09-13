@@ -1,0 +1,26 @@
+{
+  "name": "mureinik-scripts",
+  "private": true,
+  "description": "Build scripts for the mureinik/mureinik profile repo",
+  "author": "Allon Mureinik <mureinik@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mureinik/mureinik.git",
+    "directory": "scripts"
+  },
+  "bin": {
+    "generate-md": "./generate_md.js"
+  },
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "engines": {
+    "node": "26.8.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "eslint": "10.10.0",
+    "eslint-plugin-n": "18.3.0"
+  }
+}

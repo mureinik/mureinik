@@ -15,6 +15,9 @@ on:
       - public_speaking.json
       - scripts/generate_md.js
       - public_speaking.md
+      # A Node bump can change the generator's date formatting, so it gets the
+      # same check as a change to the generator itself.
+      - scripts/package.json
   workflow_dispatch:
 
 permissions:
@@ -27,9 +30,11 @@ jobs:
     steps:
       - uses: actions/checkout@v7.0.1
 
+      # The version itself is pinned by "engines.node" in scripts/package.json,
+      # so the generator runs here on the same Node it is developed against.
       - uses: actions/setup-node@v7.0.0
         with:
-          node-version: '26.8.2'
+          node-version-file: scripts/package.json
 
       - name: Regenerate the markdown
         run: node scripts/generate_md.js
