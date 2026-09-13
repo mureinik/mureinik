@@ -9,6 +9,9 @@
     "url": "https://github.com/mureinik/mureinik.git",
     "directory": "scripts"
   },
+  "bin": {
+    "generate-md": "./generate_md.js"
+  },
   "engines": {
     "node": "26.8.2"
   }
