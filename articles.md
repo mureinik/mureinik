@@ -3,11 +3,13 @@
 Articles are listed in reverse chronological order.
 
 #### Authored
+
 - **[What I wish I knew about security when I started programming](https://www.synopsys.com/blogs/software-security/security-basics-for-developers/)**, Synopsys Application Security Blog, 26/08/2022
 - **[Application developers – your first line of defense](https://grcoutlook.com/application-developers-your-first-line-of-defense/)**, GRC Outlook, 21/03/2022
 - **[The helpful stranger and meaning of open source](https://opensource.com/life/14/12/the-meaning-of-open-source)**, Opensource.com, 19/12/2014
 
 #### Quoted and referenced
+
 - **[Python’s popularity shows no signs of fading – here’s why software developers love it](https://www.itpro.com/software/development/pythons-popularity-shows-no-signs-of-fading-heres-why-software-developers-love-it)** by Ross Kelly, IT Pro, 22/05/2025
 - **[Compromise of Popular Tool Leads to Supply Chain Attack on Over 23,000 GitHub Repositories](https://www.cpomagazine.com/cyber-security/compromise-of-popular-tool-leads-to-supply-chain-attack-on-over-23000-github-repositories/)** by Scott Ikeda, CPO Magazine, 19/03/2025
 - **[GitHub restores code following malicious changes to tj-actions tool](https://therecord.media/github-restores-code-malicious-tj-actions-changes)** by Jonathan Greig, The Record, 18/03/2025

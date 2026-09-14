@@ -1,0 +1,19 @@
+{
+  // scripts/node_modules holds ~99 dependency READMEs, and a "**/*.md" glob
+  // finds every one of them. .gitignore already excludes that directory, so
+  // deferring to it keeps a local run looking at the repo's own markdown only.
+  // CI never installs before linting, so this matters locally rather than there.
+  "gitignore": true,
+
+  "config": {
+    // Line length. A generated talk entry runs to 468 characters - a title
+    // followed by links - and there is no way to wrap one without splitting
+    // the list item it belongs to.
+    "MD013": false,
+
+    // First line should be a top-level heading. README.md, articles.md and
+    // public_speaking.md all open at "###" on purpose: they are fragments
+    // rendered into a page that supplies the heading above them.
+    "MD041": false
+  }
+}

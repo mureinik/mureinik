@@ -13,7 +13,7 @@ A GitHub profile repo and the site published from it at
 `public_speaking.json` holds every talk. Two things render it:
 
 | File | How it gets the data |
-|---|---|
+| --- | --- |
 | `public_speaking.html` | `fetch('public_speaking.json')` at page load, rendered by its inline `<script>` |
 | `public_speaking.md` | **generated** by `scripts/generate_md.js`, and committed |
 
@@ -163,6 +163,41 @@ It reads a shebang as a claim that the file is an entry point, so a new
 executable script needs a matching `bin` entry in `scripts/package.json` or
 `n/hashbang` fails the build. And it resolves every `require()`, so a module
 that is not core and not a declared dependency fails too.
+
+The markdown is linted too, by markdownlint, configured in
+`.markdownlint-cli2.jsonc` — markdownlint's defaults with two rules turned off
+and `.gitignore` honoured, all detailed below:
+
+```sh
+npx markdownlint-cli2 "**/*.md"
+```
+
+`.github/workflows/markdown-lint.yml` runs the same check on any pull request
+touching a `*.md` file, through `markdownlint-cli2-action` — which bundles the
+tool, so there is nothing to install and nothing in `scripts/package.json` for
+it. Pass the glob rather than a filename: `gitignore` filtering, which is what
+keeps `scripts/node_modules` out, only applies to globs.
+
+That config turns off exactly two rules, both because they contradict something
+deliberate here — `MD013` (a generated talk entry is one unwrappable
+468-character line) and `MD041` (these files are fragments that open at `###`).
+Everything else is on, so a new file gets the defaults.
+
+It sits at the repo root rather than beside the workflow, and that is
+load-bearing: `markdownlint-cli2` discovers the file by directory, and from
+anywhere else it is simply not found. The failure is silent — the run lints
+every dependency README under `scripts/node_modules` against unmodified default
+rules and reports thousands of issues, rather than reporting a missing config.
+Relocating it would mean passing `--config` on the action *and* on every local
+invocation, with that same silent wrong answer whenever the flag is forgotten.
+The config is also not CI-specific: the command above is the same check, so it
+belongs with the repo rather than with the workflow.
+
+`public_speaking.md` is linted like any other file, not excluded for being
+generated — the generator is precisely the thing that could start emitting
+malformed markdown with nobody reading the diff. That cuts both ways: a
+generator change that upsets a rule has to be fixed in
+`scripts/generate_md.js`, never in the output.
 
 For a change to `scripts/generate_md.js`, run it and read the diff. It is deterministic:
 a second run on unchanged input produces an identical file.
