@@ -164,7 +164,9 @@ executable script needs a matching `bin` entry in `scripts/package.json` or
 `n/hashbang` fails the build. And it resolves every `require()`, so a module
 that is not core and not a declared dependency fails too.
 
-The markdown is linted too, by markdownlint against its default rules:
+The markdown is linted too, by markdownlint, configured in
+`.markdownlint-cli2.jsonc` — markdownlint's defaults with two rules turned off
+and `.gitignore` honoured, all detailed below:
 
 ```sh
 npx markdownlint-cli2 "**/*.md"
@@ -176,10 +178,20 @@ tool, so there is nothing to install and nothing in `scripts/package.json` for
 it. Pass the glob rather than a filename: `gitignore` filtering, which is what
 keeps `scripts/node_modules` out, only applies to globs.
 
-`.markdownlint-cli2.jsonc` turns off exactly two rules, both because they
-contradict something deliberate here — `MD013` (a generated talk entry is one
-unwrappable 468-character line) and `MD041` (these files are fragments that open
-at `###`). Everything else is on, so a new file gets the defaults.
+That config turns off exactly two rules, both because they contradict something
+deliberate here — `MD013` (a generated talk entry is one unwrappable
+468-character line) and `MD041` (these files are fragments that open at `###`).
+Everything else is on, so a new file gets the defaults.
+
+It sits at the repo root rather than beside the workflow, and that is
+load-bearing: `markdownlint-cli2` discovers the file by directory, and from
+anywhere else it is simply not found. The failure is silent — the run lints
+every dependency README under `scripts/node_modules` against unmodified default
+rules and reports thousands of issues, rather than reporting a missing config.
+Relocating it would mean passing `--config` on the action *and* on every local
+invocation, with that same silent wrong answer whenever the flag is forgotten.
+The config is also not CI-specific: the command above is the same check, so it
+belongs with the repo rather than with the workflow.
 
 `public_speaking.md` is linted like any other file, not excluded for being
 generated — the generator is precisely the thing that could start emitting
