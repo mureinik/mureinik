@@ -10,7 +10,8 @@
     "directory": "scripts"
   },
   "bin": {
-    "generate-md": "./generate_md.js"
+    "generate-md": "./generate_md.js",
+    "check-links": "./check_links.js"
   },
   "scripts": {
     "lint": "eslint ."
