@@ -1,4 +1,4 @@
-name: Lint
+name: ESLint
 
 # scripts/ holds the repo's only JavaScript that is not embedded in a page, and
 # ESLint checks it against its own recommended rules plus eslint-plugin-n's
@@ -12,7 +12,7 @@ on:
   pull_request:
     paths:
       - scripts/**
-      - .github/workflows/lint.yml
+      - .github/workflows/eslint.yml
   workflow_dispatch:
 
 permissions:

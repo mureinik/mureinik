@@ -153,7 +153,7 @@ CommonJS half of that plugin's recommendation:
 cd scripts && npm ci && npm run lint
 ```
 
-`.github/workflows/lint.yml` runs exactly that on any pull request touching
+`.github/workflows/eslint.yml` runs exactly that on any pull request touching
 `scripts/`. The rules live in `scripts/eslint.config.js`; the workflow only runs
 them. The inline `<script>` in `public_speaking.html` is **not** linted — it is
 browser code inside a markup file, which neither rule set fits.
