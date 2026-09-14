@@ -68,7 +68,8 @@ talks.forEach((talk) => {
   }
 
   // Add talk entry
-  let talkLine = '    - **';
+  // Two spaces, the indent markdown tooling assumes for a nested list item.
+  let talkLine = '  - **';
   if (talk.talkUrl) {
     talkLine += `[${linkLabel(talk, 'talkUrl', talk.title)}](${linkUrl(talk, 'talkUrl')}${linkTitle(talk, 'talkUrl')})`;
   } else {
