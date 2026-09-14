@@ -144,6 +144,13 @@ why (🗄️ archived, 🔒 login). Archived links are also dimmed; gated ones a
 since they work fine once you sign in. When a link is somehow both, archived
 wins — no login gets you into a host that is down.
 
+YouTube recordings are stored as `https://www.youtube.com/watch?v=<id>`, never
+as `youtu.be/<id>`. The short form is a share-link shortener: it answers 303 and
+forwards to the `watch?v=` form with a `&feature=youtu.be` parameter appended,
+and the video's own page declares the long form canonical. Recording it directly
+costs a redirect less and keeps every YouTube entry the same shape, which is
+what makes it obvious that one id appears under two talks.
+
 ## Verifying a change
 
 There is no test suite, so verification is manual. `scripts/package.json` exists
@@ -256,8 +263,8 @@ here:
 
 - **Redirects are followed, and are usually the healthy case.** `fosdem.org`
   hands its old years to `archive.fosdem.org`, `video.fosdem.org` hands
-  recordings to a mirror, SlideShare rewrote every old-style path, and
-  `youtu.be` expands to `youtube.com`. Roughly a third of the links redirect.
+  recordings to a mirror, and SlideShare rewrote every old-style path. Roughly a
+  third of the links redirect.
 - **`HEAD` is tried first, then `GET`.** Most hosts answer `HEAD` and it is
   cheaper, but not all — one YouTube URL here times out on `HEAD` and returns
   200 to a `GET`.
