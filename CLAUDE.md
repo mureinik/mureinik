@@ -84,6 +84,11 @@ through `toLocaleDateString('en-GB', …)`, which depends on the runtime's ICU
 data. A pull request touching `scripts/package.json` runs the markdown check for
 exactly this reason, so a bump that shifts the output fails there.
 
+That trigger is on the file, not on the pin — a path filter cannot look inside
+one. So the check also runs for a `bin` entry or a Dependabot version bump,
+which is expected rather than a misfire: it costs seconds, where missing a Node
+bump would let a generated file change without anyone seeing it.
+
 The two renderers share no code, so a change to how talks display usually has to
 be made twice, once in each. Keeping them in step is manual.
 

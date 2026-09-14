@@ -15,8 +15,13 @@ on:
       - public_speaking.json
       - scripts/generate_md.js
       - public_speaking.md
-      # A Node bump can change the generator's date formatting, so it gets the
-      # same check as a change to the generator itself.
+      # For engines.node: the generator formats dates through
+      # toLocaleDateString, so a Node bump can shift its output and needs the
+      # same check as a change to the generator itself. A path filter cannot
+      # look inside a file, so this runs on any edit to the manifest - a bin
+      # entry, a Dependabot version bump - and not only on the pin. That is
+      # deliberate. The check takes seconds, and the alternative is a Node bump
+      # silently changing a generated file nobody reads.
       - scripts/package.json
   workflow_dispatch:
 
