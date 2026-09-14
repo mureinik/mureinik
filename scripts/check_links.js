@@ -142,8 +142,7 @@ const main = async () => {
         continue;
       }
 
-      if (!occurrences.has(url)) occurrences.set(url, []);
-      occurrences.get(url).push({ id: talk.id, field });
+      occurrences.getOrInsertComputed(url, () => []).push({ id: talk.id, field });
     }
   }
 
