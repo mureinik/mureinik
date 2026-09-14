@@ -58,7 +58,7 @@ Talks are listed in reverse chronological order. In case a talk was given in sev
 - **[DevConf.US 2019](https://devconfus2019.sched.com/)** (15/08/2019 - 17/08/2019)
   - **[How open source made me a better manager](https://devconfus2019.sched.com/event/RFDl/how-open-source-made-me-a-better-manager)** ([slides](https://static.sched.com/hosted_files/devconfus2019/8f/How%20open%20source%20made%20me%20a%20better%20manager.pdf), [recording](https://www.youtube.com/watch?v=6IYKnLIRttU))
 - **[DevConf.CZ 2019](https://devconfcz2019.sched.com)** (25/01/2019 - 27/01/2019)
-  - **How open source made me a better developer** ([slides](https://www.slideshare.net/AllonMureinik/how-working-on-open-source-made-me-a-better-closed-source-developer), [recording](https://www.youtube.com/watch?v=W9afb-1QQxc))
+  - **How open source made me a better developer** ([recording](https://www.youtube.com/watch?v=W9afb-1QQxc))
 - **[August Penguin 2018 🗄️](https://web.archive.org/web/20181026140149/http://ap.hamakor.org.il/2018/en/index.html "Archived copy - the original page is gone")** (09/11/2018)
   - **How working on open source made me a better closed source developer** (Hebrew) ([slides](https://www.slideshare.net/AllonMureinik/how-working-on-open-source-made-me-a-better-closed-source-developer))
 - **[DevConf.US 2018](https://devconfus2018.sched.com/)** (17/08/2018 - 19/08/2018)

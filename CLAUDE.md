@@ -72,6 +72,13 @@ the lint tooling in `scripts/package.json`. Dependabot has no ecosystem for
 GitHub Actions runner images or for a Node.js runtime version, so two pins are
 bumped by hand: `runs-on: ubuntu-24.04` in the workflows, and the Node version.
 
+That pin is a real requirement locally, not just a CI detail:
+`scripts/check_duplicate_links.js` uses `Map.prototype.getOrInsertComputed`,
+which arrived in Node 26. On anything older it fails with a `TypeError` naming
+the method rather than the version, so if a script dies that way, check
+`node --version` against `engines.node` first. Nothing enforces it — these run
+as plain `node`, so npm never sees the manifest.
+
 The Node version lives in one place, `engines.node` in `scripts/package.json`.
 The workflow does not repeat it — `actions/setup-node` reads it from there via
 `node-version-file`, so CI runs the generator on the same Node the script
@@ -297,3 +304,32 @@ list is genuinely still serving.
 The script declares no dependencies — the built-in `fetch` is enough — so the
 workflow runs it with no install step. A URL used by several talks is fetched
 once and reported under each talk that uses it.
+
+## A link belongs to one talk
+
+Fetching proves a link answers, not that it answers for the right talk. The
+DevConf.CZ 2022 security entry carried the 2021 *Zoom Out!* recording for years:
+alive, checked weekly, and wrong. Nothing that looks at HTTP status can catch
+that.
+
+`scripts/check_duplicate_links.js` catches the shape of it — the same URL under
+two talks:
+
+```sh
+node scripts/check_duplicate_links.js
+```
+
+It covers `talkUrl`, `slides`, `recording` and `code`. **`conferenceUrl` is
+exempt**, and has to be: several talks at one conference share its page by
+definition, and five conferences here are represented that way. Adding it to the
+list would make the check permanently red.
+
+There is no opt-out marker, unlike `archived` and `requiresLogin`, because a
+repeat in those four fields is always an error to fix in the data. Where a talk
+really was given twice, the rule is the one the generated preamble states —
+only the most relevant conference links the recording or the slides. That is why
+the August Penguin 2018 deck is not also linked from DevConf.CZ 2019.
+
+It runs as its own job in `.github/workflows/link-check.yml`, parallel to the
+liveness check rather than gating it, so a pull request with both faults reports
+both. It makes no network calls, so it is instant to run on its own.
