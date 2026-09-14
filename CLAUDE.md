@@ -270,6 +270,18 @@ still a 404 — and a 403 from any host not on it still counts as dead. Add a ho
 only with evidence that it blocks rather than that the link is gone: fetch the
 URL from a normal connection and confirm it answers.
 
+That excuse is only needed where the check is blocked, which is CI. From your own
+machine those hosts answer normally, so run it without the excuse and get a
+verdict on every link instead:
+
+```sh
+node scripts/check_links.js --strict
+```
+
+Under `--strict` the allowlist is inert and a 403 counts as dead wherever it
+comes from. It is the better local mode, and the way to confirm a host on the
+list is genuinely still serving.
+
 The script declares no dependencies — the built-in `fetch` is enough — so the
 workflow runs it with no install step. A URL used by several talks is fetched
 once and reported under each talk that uses it.

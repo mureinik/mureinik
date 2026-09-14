@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 
-const fs = require('fs');
-const path = require('path');
-
-// This script lives in scripts/; the data it reads sits at the root.
-const jsonPath = path.join(__dirname, '..', 'public_speaking.json');
+// This script lives in scripts/; the data it reads sits at the root. require
+// resolves it relative to this file and parses it, so there is nothing here to
+// read or parse by hand.
+const { talks } = require('../public_speaking.json');
 
 // The five fields in a talk that hold a URL. Everything else is metadata.
 const LINK_FIELDS = ['conferenceUrl', 'talkUrl', 'slides', 'recording', 'code'];
@@ -33,6 +32,26 @@ const RETRIES = 2;
 // to be made deliberately, per host, with evidence that the host blocks.
 const BOT_BLOCKING_HOSTS = ['sched.com'];
 
+const USAGE = `Usage: check_links.js [--strict]
+
+Checks every link in public_speaking.json that the data does not already
+account for, and exits non-zero if any of them is dead.
+
+  --strict   Treat a 403 as a dead link even from a host in BOT_BLOCKING_HOSTS.
+             Those hosts block CI runners but answer an ordinary connection, so
+             this is the mode worth using from your own machine: it reports on
+             every link instead of excusing a whole set of them.
+`;
+
+// Pure: reports what it found and leaves printing and exit codes to the caller,
+// so nothing here has to reach for process.exit and cut stdout short.
+const parseArgs = (args) => ({
+  help: args.includes('-h') || args.includes('--help'),
+  // Silently ignoring a typo would quietly run a different check than intended.
+  unknown: args.find((arg) => arg !== '--strict'),
+  strict: args.includes('--strict'),
+});
+
 const isBotBlocked = (url, status) => {
   if (status !== 403) return false;
   // hostname, not host: the latter carries the port, which would stop an entry
@@ -43,9 +62,6 @@ const isBotBlocked = (url, status) => {
   );
 };
 
-// Conference sites move wholesale rather than per-page - fosdem.org becomes
-// archive.fosdem.org, video.fosdem.org hands off to a mirror, SlideShare
-// rewrote every old path - so a redirect is the normal case, not a problem.
 const USER_AGENT =
   'Mozilla/5.0 (compatible; mureinik-link-check/1.0; +https://github.com/mureinik/mureinik)';
 
@@ -53,6 +69,10 @@ const request = async (url, method) => {
   try {
     const response = await fetch(url, {
       method,
+      // Conference sites move wholesale rather than per-page - fosdem.org
+      // becomes archive.fosdem.org, video.fosdem.org hands off to a mirror,
+      // SlideShare rewrote every old path - so following a redirect is the
+      // normal case here, not something to be suspicious of.
       redirect: 'follow',
       signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
       headers: { 'user-agent': USER_AGENT },
@@ -94,7 +114,16 @@ const describe = (result) =>
   result.status === 0 ? result.error : String(result.status);
 
 const main = async () => {
-  const talks = JSON.parse(fs.readFileSync(jsonPath, 'utf8')).talks;
+  const { help, unknown, strict } = parseArgs(process.argv.slice(2));
+  if (help) {
+    console.log(USAGE);
+    return;
+  }
+  if (unknown !== undefined) {
+    console.error(`Unknown argument: ${unknown}\n\n${USAGE}`);
+    process.exitCode = 2;
+    return;
+  }
 
   // One URL can appear under several talks - three of them share
   // https://fosdem.org/2022/ - so fetch each once and report every place it is
@@ -141,9 +170,13 @@ const main = async () => {
       )
       .sort((a, b) => a.id.localeCompare(b.id) || a.field.localeCompare(b.field));
 
-  const blocked = usesOf((url, status) => isBotBlocked(url, status));
+  // Under --strict the allowlist is inert, so nothing is excused and every
+  // non-2xx lands in "dead".
+  const excused = (url, status) => !strict && isBotBlocked(url, status);
+
+  const blocked = usesOf(excused);
   const dead = usesOf(
-    (url, status) => (status < 200 || status >= 300) && !isBotBlocked(url, status)
+    (url, status) => (status < 200 || status >= 300) && !excused(url, status)
   );
 
   const report = (heading, entries) => {
