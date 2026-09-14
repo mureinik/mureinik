@@ -26,8 +26,7 @@ const findDuplicates = () => {
       const url = talk[field];
       if (!url) continue;
 
-      if (!uses.has(url)) uses.set(url, []);
-      uses.get(url).push({ id: talk.id, field });
+      uses.getOrInsertComputed(url, () => []).push({ id: talk.id, field });
     }
   }
 

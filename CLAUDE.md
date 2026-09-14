@@ -72,6 +72,13 @@ the lint tooling in `scripts/package.json`. Dependabot has no ecosystem for
 GitHub Actions runner images or for a Node.js runtime version, so two pins are
 bumped by hand: `runs-on: ubuntu-24.04` in the workflows, and the Node version.
 
+That pin is a real requirement locally, not just a CI detail:
+`scripts/check_duplicate_links.js` uses `Map.prototype.getOrInsertComputed`,
+which arrived in Node 26. On anything older it fails with a `TypeError` naming
+the method rather than the version, so if a script dies that way, check
+`node --version` against `engines.node` first. Nothing enforces it — these run
+as plain `node`, so npm never sees the manifest.
+
 The Node version lives in one place, `engines.node` in `scripts/package.json`.
 The workflow does not repeat it — `actions/setup-node` reads it from there via
 `node-version-file`, so CI runs the generator on the same Node the script
