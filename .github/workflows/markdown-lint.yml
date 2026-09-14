@@ -1,0 +1,35 @@
+name: Markdown lint
+
+# Checks every markdown file in the repo against markdownlint's default rules,
+# minus the two turned off in .markdownlint-cli2.jsonc. The rules live in that
+# config, so a local run and this workflow see the same thing:
+#
+#   npx markdownlint-cli2 "**/*.md"
+#
+# public_speaking.md is generated, and it is linted like anything else - the
+# generator is exactly the thing that could start emitting malformed markdown
+# without anyone reading the diff.
+
+on:
+  pull_request:
+    paths:
+      - '**/*.md'
+      - .markdownlint-cli2.jsonc
+      - .github/workflows/markdown-lint.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  markdownlint:
+    name: Markdown passes markdownlint
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7.0.1
+
+      # The action bundles markdownlint-cli2 and picks up the config from the
+      # repo root on its own.
+      - uses: DavidAnson/markdownlint-cli2-action@v24.2.0
+        with:
+          globs: '**/*.md'

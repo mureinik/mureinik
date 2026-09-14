@@ -164,6 +164,29 @@ executable script needs a matching `bin` entry in `scripts/package.json` or
 `n/hashbang` fails the build. And it resolves every `require()`, so a module
 that is not core and not a declared dependency fails too.
 
+The markdown is linted too, by markdownlint against its default rules:
+
+```sh
+npx markdownlint-cli2 "**/*.md"
+```
+
+`.github/workflows/markdown-lint.yml` runs the same check on any pull request
+touching a `*.md` file, through `markdownlint-cli2-action` — which bundles the
+tool, so there is nothing to install and nothing in `scripts/package.json` for
+it. Pass the glob rather than a filename: `gitignore` filtering, which is what
+keeps `scripts/node_modules` out, only applies to globs.
+
+`.markdownlint-cli2.jsonc` turns off exactly two rules, both because they
+contradict something deliberate here — `MD013` (a generated talk entry is one
+unwrappable 468-character line) and `MD041` (these files are fragments that open
+at `###`). Everything else is on, so a new file gets the defaults.
+
+`public_speaking.md` is linted like any other file, not excluded for being
+generated — the generator is precisely the thing that could start emitting
+malformed markdown with nobody reading the diff. That cuts both ways: a
+generator change that upsets a rule has to be fixed in
+`scripts/generate_md.js`, never in the output.
+
 For a change to `scripts/generate_md.js`, run it and read the diff. It is deterministic:
 a second run on unchanged input produces an identical file.
 
