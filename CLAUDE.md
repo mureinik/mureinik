@@ -229,3 +229,36 @@ turns out to be dead, check for a Wayback snapshot before dropping it, and
 prefer `archived` over deleting the URL. Note that an anonymous 404 does not
 always mean gone: a private GitHub repo and a nonexistent one look identical to
 a logged-out visitor.
+
+`scripts/check_links.js` looks for that rot rather than waiting for someone to
+click a dead link:
+
+```sh
+node scripts/check_links.js
+```
+
+It walks the five URL fields in every talk — `conferenceUrl`, `talkUrl`,
+`slides`, `recording`, `code` — and skips what the JSON already accounts for: a
+field named in that talk's `archived` map, and one named in its `requiresLogin`
+array. Those two fields *are* the record of a link's state, so re-checking them
+would only restate it. Today that is 101 links checked and 12 skipped.
+
+`.github/workflows/link-check.yml` runs it weekly, on any pull request touching
+the JSON or the script, and on demand. It fails the job and lists what died.
+
+Three things about how it decides, each of which a naive checker gets wrong
+here:
+
+- **Redirects are followed, and are usually the healthy case.** `fosdem.org`
+  hands its old years to `archive.fosdem.org`, `video.fosdem.org` hands
+  recordings to a mirror, SlideShare rewrote every old-style path, and
+  `youtu.be` expands to `youtube.com`. Roughly a third of the links redirect.
+- **`HEAD` is tried first, then `GET`.** Most hosts answer `HEAD` and it is
+  cheaper, but not all — one YouTube URL here times out on `HEAD` and returns
+  200 to a `GET`.
+- **A 4xx is final; a timeout, 429 or 5xx is retried.** Asking again after a 404
+  gains nothing, while the other three are as often a bad moment as a dead link.
+
+The script declares no dependencies — the built-in `fetch` is enough — so the
+workflow runs it with no install step. A URL used by several talks is fetched
+once and reported under each talk that uses it.

@@ -1,0 +1,46 @@
+name: Link check
+
+# Conference sites outlive their conference by only a few years, so the links in
+# public_speaking.json rot quietly. This looks for that on a weekly schedule
+# rather than waiting for someone to click one.
+#
+# Links the JSON already accounts for are skipped: a field listed in a talk's
+# "archived" map has a host that is known to be gone, and one listed in
+# "requiresLogin" answers only for a signed-in visitor. Checking either would
+# just re-report what the data already records.
+#
+# Fixing a failure means editing public_speaking.json - prefer an "archived"
+# entry over deleting a URL, per the "Links rot" section in CLAUDE.md.
+
+on:
+  schedule:
+    # Mondays, 06:00 UTC. Only runs from the default branch.
+    - cron: '0 6 * * 1'
+  pull_request:
+    paths:
+      - public_speaking.json
+      - scripts/check_links.js
+      - .github/workflows/link-check.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-links:
+    name: Talk links are alive
+    runs-on: ubuntu-24.04
+    # The script bounds each request and its retries, so a normal run takes well
+    # under a minute. This is a backstop against a pathological one.
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7.0.1
+
+      # Same pin the other workflows read. There is no "npm ci" step: the script
+      # uses the built-in fetch and declares no dependencies.
+      - uses: actions/setup-node@v7.0.0
+        with:
+          node-version-file: scripts/package.json
+
+      - name: Check the talk links
+        run: node scripts/check_links.js
