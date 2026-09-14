@@ -15,7 +15,8 @@
     "check-duplicate-links": "./check_duplicate_links.js"
   },
   "scripts": {
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "lint:html": "html-validate ../public_speaking.html"
   },
   "engines": {
     "node": "26.8.2"
@@ -23,6 +24,7 @@
   "devDependencies": {
     "@eslint/js": "10.0.1",
     "eslint": "10.10.0",
-    "eslint-plugin-n": "18.3.0"
+    "eslint-plugin-n": "18.3.0",
+    "html-validate": "11.15.0"
   }
 }

@@ -173,8 +173,44 @@ cd scripts && npm ci && npm run lint
 
 `.github/workflows/eslint.yml` runs exactly that on any pull request touching
 `scripts/`. The rules live in `scripts/eslint.config.js`; the workflow only runs
-them. The inline `<script>` in `public_speaking.html` is **not** linted — it is
-browser code inside a markup file, which neither rule set fits.
+them. The inline `<script>` in `public_speaking.html` is **not** linted — see
+below, where the markup is.
+
+The markup of `public_speaking.html` is checked by `html-validate`, against its
+recommended rules:
+
+```sh
+cd scripts && npm ci && npm run lint:html
+```
+
+`.github/workflows/html-lint.yml` runs that on any pull request touching the
+page, the config, or the manifest the tool version is pinned in. The rules live
+in `.htmlvalidate.json` at the repo root — `html-validate` resolves its config by
+walking up from the file being linted, so the root is where a page at the root
+finds it.
+
+The inline `<script>` stays uncovered, and the reason is mechanical rather than
+philosophical. Linting it needs ESLint with a browser configuration, and ESLint
+resolves flat config upward from the linted file too — but unlike
+`html-validate` it also refuses to lint anything outside its config's base path.
+`scripts/eslint.config.js` therefore cannot reach a page at the repo root, and
+the way it declines is the dangerous part:
+
+```text
+0:0  warning  File ignored because outside of base path
+✖ 1 problem (0 errors, 1 warning)
+exit: 0
+```
+
+It **passes**. A workflow wired that way would be green forever while checking
+nothing. Covering the inline script properly means a root-level ESLint config,
+and therefore root-level `node_modules` to import the plugins from — a second
+manifest, or npm workspaces. That was judged not worth it for one `<script>`
+block; revisit if it grows.
+
+`html-validate` has no such trap. Pointed at a path that matches nothing it
+prints `No files matching patterns` and exits 1, rather than reporting success
+over an empty set.
 
 Two consequences of `eslint-plugin-n` worth knowing before adding a script here.
 It reads a shebang as a claim that the file is an entry point, so a new

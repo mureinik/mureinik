@@ -1,0 +1,53 @@
+name: HTML lint
+
+# public_speaking.html is the one hand-written page in the repo, and the only
+# file here that browsers parse leniently enough to hide a mistake. html-validate
+# checks the markup against its recommended rules.
+#
+# Scope: markup only. The inline <script> is not linted - that needs ESLint with
+# a browser configuration, and ESLint resolves its config upward from the file
+# being linted, so scripts/eslint.config.js cannot reach a page at the repo
+# root. See "Verifying a change" in CLAUDE.md.
+#
+# The rules live in .htmlvalidate.json at the repo root, so a local run and this
+# workflow see the same thing:
+#
+#   cd scripts && npm ci && npm run lint:html
+
+on:
+  pull_request:
+    paths:
+      - public_speaking.html
+      - .htmlvalidate.json
+      # The tool version is pinned here, so a Dependabot bump gets checked.
+      - scripts/package.json
+      - scripts/package-lock.json
+      - .github/workflows/html-lint.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  html-validate:
+    name: public_speaking.html is valid
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: scripts
+    steps:
+      - uses: actions/checkout@v7.0.1
+
+      # Paths here are workspace-relative, so they carry the scripts/ prefix
+      # despite the working-directory above.
+      - uses: actions/setup-node@v7.0.0
+        with:
+          node-version-file: scripts/package.json
+          cache: npm
+          cache-dependency-path: scripts/package-lock.json
+
+      - name: Install the tooling
+        run: npm ci
+
+      - name: Validate the markup
+        run: npm run lint:html
