@@ -23,6 +23,26 @@ const REQUEST_TIMEOUT_MS = 20000;
 const CONCURRENCY = 8;
 const RETRIES = 2;
 
+// Hosts that refuse datacenter IP ranges outright. Sched serves every DevConf
+// page here and answers a GitHub Actions runner with 403 while serving the same
+// URL normally to anyone else, so a 403 from one of these says something about
+// where the check ran, not about whether the link is alive.
+//
+// This downgrades 403 alone. A 404 from one of these hosts is still a 404, and
+// a 403 from any host not listed here is still treated as dead - the entry has
+// to be made deliberately, per host, with evidence that the host blocks.
+const BOT_BLOCKING_HOSTS = ['sched.com'];
+
+const isBotBlocked = (url, status) => {
+  if (status !== 403) return false;
+  // hostname, not host: the latter carries the port, which would stop an entry
+  // from ever matching a URL that has one.
+  const { hostname } = new URL(url);
+  return BOT_BLOCKING_HOSTS.some(
+    (blocked) => hostname === blocked || hostname.endsWith(`.${blocked}`)
+  );
+};
+
 // Conference sites move wholesale rather than per-page - fosdem.org becomes
 // archive.fosdem.org, video.fosdem.org hands off to a mirror, SlideShare
 // rewrote every old path - so a redirect is the normal case, not a problem.
@@ -111,15 +131,34 @@ const main = async () => {
     })
   );
 
-  const dead = urls
-    .filter((url) => {
-      const { status } = results.get(url);
-      return status < 200 || status >= 300;
-    })
-    .flatMap((url) =>
-      occurrences.get(url).map((use) => ({ ...use, url, result: results.get(url) }))
-    )
-    .sort((a, b) => a.id.localeCompare(b.id) || a.field.localeCompare(b.field));
+  // Every place a failing URL is used, so the report names the talk to edit
+  // rather than just the URL that broke.
+  const usesOf = (matches) =>
+    urls
+      .filter((url) => matches(url, results.get(url).status))
+      .flatMap((url) =>
+        occurrences.get(url).map((use) => ({ ...use, url, result: results.get(url) }))
+      )
+      .sort((a, b) => a.id.localeCompare(b.id) || a.field.localeCompare(b.field));
+
+  const blocked = usesOf((url, status) => isBotBlocked(url, status));
+  const dead = usesOf(
+    (url, status) => (status < 200 || status >= 300) && !isBotBlocked(url, status)
+  );
+
+  const report = (heading, entries) => {
+    const width = {
+      id: Math.max(...entries.map((e) => e.id.length)),
+      field: Math.max(...entries.map((e) => e.field.length)),
+    };
+    console.log(`\n${heading}\n`);
+    for (const e of entries) {
+      console.log(
+        `  ${e.id.padEnd(width.id)}  ${e.field.padEnd(width.field)}  ` +
+          `${describe(e.result).padEnd(11)}  ${e.url}`
+      );
+    }
+  };
 
   const checkedCount = [...occurrences.values()].reduce((n, uses) => n + uses.length, 0);
   console.log(
@@ -128,22 +167,22 @@ const main = async () => {
       `(${skipped.archived} archived, ${skipped.login} login).`
   );
 
+  if (blocked.length > 0) {
+    report(
+      `${blocked.length} link(s) could not be verified - the host refused this ` +
+        `machine, which\nsays nothing about whether the link works:`,
+      blocked
+    );
+  }
+
   if (dead.length === 0) {
-    console.log('All links are alive.');
+    console.log(
+      blocked.length > 0 ? '\nEvery link that could be checked is alive.' : 'All links are alive.'
+    );
     return;
   }
 
-  const width = {
-    id: Math.max(...dead.map((d) => d.id.length)),
-    field: Math.max(...dead.map((d) => d.field.length)),
-  };
-  console.log(`\n${dead.length} dead link(s):\n`);
-  for (const d of dead) {
-    console.log(
-      `  ${d.id.padEnd(width.id)}  ${d.field.padEnd(width.field)}  ` +
-        `${describe(d.result).padEnd(11)}  ${d.url}`
-    );
-  }
+  report(`${dead.length} dead link(s):`, dead);
   console.log(
     '\nCheck for a Wayback snapshot before dropping a URL: prefer an "archived"\n' +
       'entry in public_speaking.json over deleting the link.'
