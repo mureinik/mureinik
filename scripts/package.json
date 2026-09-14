@@ -11,7 +11,8 @@
   },
   "bin": {
     "generate-md": "./generate_md.js",
-    "check-links": "./check_links.js"
+    "check-links": "./check_links.js",
+    "check-duplicate-links": "./check_duplicate_links.js"
   },
   "scripts": {
     "lint": "eslint ."

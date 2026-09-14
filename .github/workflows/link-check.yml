@@ -1,16 +1,21 @@
 name: Link check
 
-# Conference sites outlive their conference by only a few years, so the links in
-# public_speaking.json rot quietly. This looks for that on a weekly schedule
-# rather than waiting for someone to click one.
+# Two things can be wrong with a link in public_speaking.json, and this checks
+# for both. It can stop answering - conference sites outlive their conference by
+# only a few years, and rot quietly - or it can answer perfectly well while
+# belonging to a different talk, which no amount of fetching will reveal.
 #
-# Links the JSON already accounts for are skipped: a field listed in a talk's
-# "archived" map has a host that is known to be gone, and one listed in
-# "requiresLogin" answers only for a signed-in visitor. Checking either would
-# just re-report what the data already records.
+# For the first: links the JSON already accounts for are skipped, since a field
+# listed in a talk's "archived" map has a host that is known to be gone and one
+# listed in "requiresLogin" answers only for a signed-in visitor. Checking
+# either would just re-report what the data already records.
 #
-# Fixing a failure means editing public_speaking.json - prefer an "archived"
-# entry over deleting a URL, per the "Links rot" section in CLAUDE.md.
+# For the second: a recording, deck, session page or repository belongs to one
+# talk. Conference pages are exempt, because several talks at one conference
+# share one by definition.
+#
+# Fixing either means editing public_speaking.json - and for a dead link, prefer
+# an "archived" entry over deleting the URL, per "Links rot" in CLAUDE.md.
 
 on:
   schedule:
@@ -20,6 +25,7 @@ on:
     paths:
       - public_speaking.json
       - scripts/check_links.js
+      - scripts/check_duplicate_links.js
       - .github/workflows/link-check.yml
   workflow_dispatch:
 
@@ -27,6 +33,21 @@ permissions:
   contents: read
 
 jobs:
+  # Independent of the job below rather than gating it, so a pull request that
+  # both duplicates a link and breaks another reports both faults at once.
+  duplicate-links:
+    name: Talk links are not duplicated
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7.0.1
+
+      - uses: actions/setup-node@v7.0.0
+        with:
+          node-version-file: scripts/package.json
+
+      - name: Check for duplicated links
+        run: node scripts/check_duplicate_links.js
+
   check-links:
     name: Talk links are alive
     runs-on: ubuntu-24.04
