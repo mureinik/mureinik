@@ -3,11 +3,13 @@
 *A software engineering manager who likes nothing more than when his employees prove him wrong.*
 
 ## Who am I?
+
 A Senior Manager at [Black Duck](https://www.blackduck.com), managing the R&D efforts for the [Seeker](https://www.blackduck.com/interactive-application-security-testing.html) (IAST) Agents.
 
 Passionate about open source, automating code quality and team building, not necessarily in that order.
 
 ## What else have I been up to?
+
 - [GitHub](https://github.com/mureinik)
 - [Twitter](https://twitter.com/mureinik)
 - [LinkedIn](https://www.linkedin.com/in/mureinik/)

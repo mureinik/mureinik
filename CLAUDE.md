@@ -13,7 +13,7 @@ A GitHub profile repo and the site published from it at
 `public_speaking.json` holds every talk. Two things render it:
 
 | File | How it gets the data |
-|---|---|
+| --- | --- |
 | `public_speaking.html` | `fetch('public_speaking.json')` at page load, rendered by its inline `<script>` |
 | `public_speaking.md` | **generated** by `scripts/generate_md.js`, and committed |
 
