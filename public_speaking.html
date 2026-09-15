@@ -526,12 +526,33 @@
       return weights;
     }
 
-    function getTagColor(tag) {
-      return 'hsl(270, 60%, 60%)';
+    // The three accents that clear 4.5:1 against both --bg values. --accent-4 is
+    // a background fill everywhere else on this page rather than a text colour,
+    // and it does not survive the move: #d4a000 on the light scheme's white is
+    // 2.4:1, and the cloud's smallest words render at 12px.
+    const CLOUD_ACCENTS = ['--accent-1', '--accent-2', '--accent-3'];
+
+    // Colour says what size cannot. Font size is linear in the talk count, so the
+    // one 15-talk tag dwarfs everything and the long tail is uniformly tiny;
+    // ranking colour on log(count) spreads that tail across the palette instead
+    // of flattening it into one bucket. Equal counts always get the same accent.
+    function getTagColors(weights) {
+      const counts = weights.map(([, count]) => count);
+      const min = Math.log(Math.min(...counts));
+      const spread = Math.log(Math.max(...counts)) - min;
+      const styles = getComputedStyle(document.documentElement);
+
+      return new Map(weights.map(([tag, count]) => {
+        const rank = spread === 0 ? 1 : (Math.log(count) - min) / spread;
+        const accent = Math.min(CLOUD_ACCENTS.length - 1,
+          Math.floor((1 - rank) * CLOUD_ACCENTS.length));
+        return [tag, styles.getPropertyValue(CLOUD_ACCENTS[accent]).trim()];
+      }));
     }
 
     function renderCloud(weights) {
       const list = weights.map(([tag, count]) => [tag, count * 5]);
+      const colors = getTagColors(weights);
 
       WordCloud(document.getElementById('wc-canvas'), {
         list,
@@ -539,7 +560,7 @@
         weightFactor(size) {
           return size * 2;
         },
-        color: (word) => getTagColor(word),
+        color: (word) => colors.get(word),
         backgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--bg'),
         minSize: 12,
         click(item) {
@@ -815,6 +836,14 @@
             const weights = buildTagWeights(allTalks);
             renderCloud(weights);
           }, 300);
+        });
+
+        // The cloud is pixels, not elements: its colours and background are read
+        // out of the stylesheet once, at paint time, so a scheme flip with the
+        // page open would otherwise leave the old palette on the canvas until
+        // something else happened to repaint it.
+        window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => {
+          renderCloud(buildTagWeights(allTalks));
         });
       } catch (error) {
         console.error('Failed to load talks:', error);
