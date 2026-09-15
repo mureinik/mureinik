@@ -837,6 +837,14 @@
             renderCloud(weights);
           }, 300);
         });
+
+        // The cloud is pixels, not elements: its colours and background are read
+        // out of the stylesheet once, at paint time, so a scheme flip with the
+        // page open would otherwise leave the old palette on the canvas until
+        // something else happened to repaint it.
+        window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => {
+          renderCloud(buildTagWeights(allTalks));
+        });
       } catch (error) {
         console.error('Failed to load talks:', error);
         document.getElementById('talk-list').innerHTML = '<li><p>Error loading talks data.</p></li>';
