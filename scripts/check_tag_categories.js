@@ -6,8 +6,8 @@
 const { talks, tagCategories } = require('../public_speaking.json');
 
 // The topic cloud in public_speaking.html paints each tag in its category's
-// colour and sizes it by the number of talks. Colour therefore has to mean
-// something for every tag on the canvas: a tag in no category renders grey,
+// color and sizes it by the number of talks. Color therefore has to mean
+// something for every tag on the canvas: a tag in no category renders gray,
 // which reads as a category of its own, and a tag in two would have to pick
 // one. The legend, drawn from tagCategories, makes the same demand from the
 // other side - a category that no talk uses is a swatch explaining nothing.
@@ -23,7 +23,7 @@ const collectFaults = () => {
     if (tags.length === 0) {
       faults.push({
         headline: `Category "${category}" names no tags.`,
-        detail: ['It would draw a legend entry that colours nothing.'],
+        detail: ['It would draw a legend entry that colors nothing.'],
       });
     }
     for (const tag of tags) {
@@ -31,8 +31,8 @@ const collectFaults = () => {
     }
   }
 
-  // Tag -> the talks using it, so an uncategorised tag can be reported with
-  // the entries that will render grey because of it.
+  // Tag -> the talks using it, so an uncategorized tag can be reported with
+  // the entries that will render gray because of it.
   const talksOf = new Map();
   for (const talk of talks) {
     for (const tag of talk.tags) {
@@ -90,7 +90,7 @@ const main = () => {
     }
   }
   console.log(
-    '\nThe cloud colours a tag by its category, so the two halves of\n' +
+    '\nThe cloud colors a tag by its category, so the two halves of\n' +
       'public_speaking.json have to name exactly the same tags. Fix the data:\n' +
       'a new tag needs a category, and a renamed one needs renaming in both.'
   );

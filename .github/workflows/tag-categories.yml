@@ -1,13 +1,13 @@
 name: Tag categories
 
 # The topic cloud in public_speaking.html encodes two things at once: a tag's
-# size is the number of talks carrying it, and its colour is the category it
+# size is the number of talks carrying it, and its color is the category it
 # belongs to. The categories live in public_speaking.json, in "tagCategories",
 # beside the talks that use the tags.
 #
 # That only works while the two halves of the file name exactly the same tags.
-# A tag a talk uses but no category names has no colour to paint - it renders
-# grey, which reads as a category of its own - and a tag two categories name
+# A tag a talk uses but no category names has no color to paint - it renders
+# gray, which reads as a category of its own - and a tag two categories name
 # has no single one to paint it. The legend is drawn from the categories, so it
 # makes the same demand in reverse: a category no talk uses is a swatch that
 # explains nothing.

@@ -178,25 +178,25 @@ it — `scripts/generate_md.js` reads `data.talks` and nothing else — so a cha
 here leaves `public_speaking.md` untouched.
 
 The cloud encodes two different things at once. A word's **size** is the number
-of talks carrying that tag, linear in the count. Its **colour** is the category.
-Colour used to rank the count as well, which meant the biggest word was also the
-reddest and colour told you nothing size had not.
+of talks carrying that tag, linear in the count. Its **color** is the category.
+Color used to rank the count as well, which meant the biggest word was also the
+reddest and color told you nothing size had not.
 
-Categories are coloured by their **position** in the JSON, through `--cat-1`
+Categories are colored by their **position** in the JSON, through `--cat-1`
 … `--cat-5`, rather than by name. Renaming a category in the data therefore
-cannot quietly leave it uncoloured; reordering the categories does shuffle the
+cannot quietly leave it uncolored; reordering the categories does shuffle the
 palette, which is visible the moment you look.
 
-Those five variables are defined twice, once per colour scheme, exactly as the
+Those five variables are defined twice, once per color scheme, exactly as the
 accents are. That is not stylistic. Text needs 4.5:1 against its background, and
-no single colour clears that against both `#0f1117` and `#ffffff`: the first
+no single color clears that against both `#0f1117` and `#ffffff`: the first
 demands a relative luminance of at least 0.198, the second at most 0.183. Every
 palette on this page has to be two palettes. The ten in use run from 5.3:1 to
 11.9:1 against their own background.
 
-The legend under the canvas is the only thing that says what a colour means, so
+The legend under the canvas is the only thing that says what a color means, so
 it is not decoration. Its swatches hold `var(--cat-N)` rather than a resolved
-hex, which is why they follow a colour-scheme flip by themselves while the
+hex, which is why they follow a color-scheme flip by themselves while the
 canvas — pixels, not elements — has to be repainted by the `matchMedia`
 listener. The `sr-only` tag buttons carry the same two facts in words: their
 labels name the category and the talk count.
@@ -212,7 +212,7 @@ It reports four faults, all of them at once rather than stopping at the first �
 a tag a talk uses that no category names, a tag two categories name, a tag no
 talk uses, and a category naming no tags at all. The renderer survives the first
 of those by falling back to `--text-muted`, which is deliberately unremarkable:
-a grey word reads as a category of its own, so the fallback keeps a working tree
+a gray word reads as a category of its own, so the fallback keeps a working tree
 rendering mid-edit rather than excusing the state.
 
 `.github/workflows/tag-categories.yml` runs it on any pull request touching the
@@ -336,7 +336,7 @@ over-marking and under-marking fail the check.
 
 The cloud is reachable the same way, by stubbing `WordCloud` and
 `getComputedStyle` and reading what the page would have painted. Two things are
-worth pinning there: that every tag in a category resolves to one colour and
+worth pinning there: that every tag in a category resolves to one color and
 that the categories resolve to different ones — in **both** schemes, since each
 has its own palette. Read the hexes out of the stylesheet rather than copying
 them into the check, or the check goes on passing after the palette changes.
