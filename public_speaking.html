@@ -122,6 +122,34 @@
       gap: 0.4rem;
     }
 
+    /* Each entry narrows the cloud to its own category, so it has to be a real
+       button: reachable by keyboard, and with its state in aria-pressed. */
+    #wc-legend button {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.2rem 0.5rem;
+      background: none;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+      transition: opacity 0.2s, border-color 0.2s, color 0.2s;
+    }
+
+    #wc-legend button:hover,
+    #wc-legend button[aria-pressed="true"] {
+      border-color: var(--border);
+      color: var(--text);
+    }
+
+    /* While one category is selected the others recede, so a cloud with five
+       words missing reads as filtered rather than broken. */
+    #wc-legend button.dimmed {
+      opacity: 0.45;
+    }
+
     .wc-swatch {
       width: 0.75rem;
       height: 0.75rem;
@@ -519,6 +547,7 @@
     let allTalks = [];
     let topicTags = new Set();
     let currentTopicFilter = null;
+    let currentCategoryFilter = null;
     let currentLanguageFilter = null;
     let currentConferenceFilter = null;
     let currentYearFilter = null;
@@ -614,13 +643,40 @@
 
       varOfCategory.forEach((cssVar, category) => {
         const item = document.createElement('li');
+        const btn = document.createElement('button');
+        const selected = category === currentCategoryFilter;
+
+        btn.type = 'button';
+        btn.setAttribute('aria-pressed', String(selected));
+        btn.classList.toggle('dimmed', currentCategoryFilter !== null && !selected);
+        btn.addEventListener('click', () => toggleCategory(category));
+
         const swatch = document.createElement('span');
         swatch.className = 'wc-swatch';
         swatch.style.background = `var(${cssVar})`;
-        item.appendChild(swatch);
-        item.appendChild(document.createTextNode(category));
+        btn.appendChild(swatch);
+        btn.appendChild(document.createTextNode(category));
+
+        item.appendChild(btn);
         legend.appendChild(item);
       });
+    }
+
+    // Selecting a category narrows the cloud to its tags; selecting it again
+    // restores the rest. The talk list is deliberately left alone - clicking a
+    // word in the narrowed cloud is what filters the talks, as it always was.
+    function toggleCategory(category) {
+      currentCategoryFilter = currentCategoryFilter === category ? null : category;
+      renderLegend();
+      paintCloud();
+    }
+
+    // Every repaint goes through here - first load, resize, colour-scheme flip
+    // and the legend - so none of them can quietly restore tags the viewer
+    // filtered out.
+    function paintCloud() {
+      renderCloud(buildTagWeights(allTalks).filter(([tag]) =>
+        !currentCategoryFilter || categoryOfTag.get(tag) === currentCategoryFilter));
     }
 
     function renderCloud(weights) {
@@ -879,8 +935,7 @@
         indexCategories(data.tagCategories);
         renderLegend();
 
-        const weights = buildTagWeights(allTalks);
-        renderCloud(weights);
+        paintCloud();
         renderYearChart(allTalks);
         renderTalkList(allTalks);
 
@@ -913,19 +968,14 @@
         let resizeTimeout;
         window.addEventListener('resize', () => {
           clearTimeout(resizeTimeout);
-          resizeTimeout = setTimeout(() => {
-            const weights = buildTagWeights(allTalks);
-            renderCloud(weights);
-          }, 300);
+          resizeTimeout = setTimeout(paintCloud, 300);
         });
 
         // The cloud is pixels, not elements: its colours and background are read
         // out of the stylesheet once, at paint time, so a scheme flip with the
         // page open would otherwise leave the old palette on the canvas until
         // something else happened to repaint it.
-        window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => {
-          renderCloud(buildTagWeights(allTalks));
-        });
+        window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', paintCloud);
       } catch (error) {
         console.error('Failed to load talks:', error);
         document.getElementById('talk-list').innerHTML = '<li><p>Error loading talks data.</p></li>';
