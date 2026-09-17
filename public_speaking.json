@@ -1,4 +1,11 @@
 {
+  "tagCategories": {
+    "Security": ["Security", "DoS", "Injection", "OWASP"],
+    "Languages & Tools": ["Java", "Node.js", "Mockito", "oVirt"],
+    "Craft": ["Software Engineering", "Testing"],
+    "People & Career": ["Management", "Career", "Remote work", "Inclusion", "Cognitive bias"],
+    "Open Source & Community": ["Open Source", "Community"]
+  },
   "talks": [
     {
       "id": "nitzanim-2026",
