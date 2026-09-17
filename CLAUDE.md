@@ -72,8 +72,9 @@ the lint tooling in `scripts/package.json`. Dependabot has no ecosystem for
 GitHub Actions runner images or for a Node.js runtime version, so two pins are
 bumped by hand: `runs-on: ubuntu-24.04` in the workflows, and the Node version.
 
-That pin is a real requirement locally, not just a CI detail: both link scripts
-use `Map.prototype.getOrInsertComputed`, which arrived in Node 26. On anything
+That pin is a real requirement locally, not just a CI detail: the two link
+scripts and `check_tag_categories.js` use `Map.prototype.getOrInsertComputed`,
+which arrived in Node 26. On anything
 older they fail with a `TypeError` naming the method rather than the version, so
 if a script dies that way, check `node --version` against `engines.node` first.
 Nothing enforces it — these run as plain `node`, so npm never sees the manifest.
@@ -156,6 +157,69 @@ forwards to the `watch?v=` form with a `&feature=youtu.be` parameter appended,
 and the video's own page declares the long form canonical. Recording it directly
 costs a redirect less and keeps every YouTube entry the same shape, which is
 what makes it obvious that one id appears under two talks.
+
+## Every tag has a category
+
+`public_speaking.json` opens with `tagCategories`, a map from a category name to
+the tags in it, sitting above the talks that use those tags:
+
+```json
+"tagCategories": {
+  "Security": ["Security", "DoS", "Injection", "OWASP"],
+  "Languages & Tools": ["Java", "Node.js", "Mockito", "oVirt"],
+  "Craft": ["Software Engineering", "Testing"],
+  "People & Career": ["Management", "Career", "Remote work", "Inclusion", "Cognitive bias"],
+  "Open Source & Community": ["Open Source", "Community"]
+}
+```
+
+Only the topic cloud in `public_speaking.html` reads it. The generator ignores
+it — `scripts/generate_md.js` reads `data.talks` and nothing else — so a change
+here leaves `public_speaking.md` untouched.
+
+The cloud encodes two different things at once. A word's **size** is the number
+of talks carrying that tag, linear in the count. Its **colour** is the category.
+Colour used to rank the count as well, which meant the biggest word was also the
+reddest and colour told you nothing size had not.
+
+Categories are coloured by their **position** in the JSON, through `--cat-1`
+… `--cat-5`, rather than by name. Renaming a category in the data therefore
+cannot quietly leave it uncoloured; reordering the categories does shuffle the
+palette, which is visible the moment you look.
+
+Those five variables are defined twice, once per colour scheme, exactly as the
+accents are. That is not stylistic. Text needs 4.5:1 against its background, and
+no single colour clears that against both `#0f1117` and `#ffffff`: the first
+demands a relative luminance of at least 0.198, the second at most 0.183. Every
+palette on this page has to be two palettes. The ten in use run from 5.3:1 to
+11.9:1 against their own background.
+
+The legend under the canvas is the only thing that says what a colour means, so
+it is not decoration. Its swatches hold `var(--cat-N)` rather than a resolved
+hex, which is why they follow a colour-scheme flip by themselves while the
+canvas — pixels, not elements — has to be repainted by the `matchMedia`
+listener. The `sr-only` tag buttons carry the same two facts in words: their
+labels name the category and the talk count.
+
+The two halves of the file have to name exactly the same tags, and nothing about
+adding a talk prompts anyone to revisit the map:
+
+```sh
+node scripts/check_tag_categories.js
+```
+
+It reports four faults, all of them at once rather than stopping at the first —
+a tag a talk uses that no category names, a tag two categories name, a tag no
+talk uses, and a category naming no tags at all. The renderer survives the first
+of those by falling back to `--text-muted`, which is deliberately unremarkable:
+a grey word reads as a category of its own, so the fallback keeps a working tree
+rendering mid-edit rather than excusing the state.
+
+`.github/workflows/tag-categories.yml` runs it on any pull request touching the
+JSON, the script, or the workflow. There is no `schedule`, unlike the link
+check: a tag cannot fall out of its category unattended, so the file changing is
+the only thing worth checking. It makes no network calls, so it is instant to
+run locally.
 
 ## Verifying a change
 
@@ -269,6 +333,13 @@ python3 -m http.server 8000   # then open http://localhost:8000/public_speaking.
 DOM shim, and assert on the HTML it returns. When asserting how many links got
 marked, count them from the JSON rather than hardcoding a number, so that both
 over-marking and under-marking fail the check.
+
+The cloud is reachable the same way, by stubbing `WordCloud` and
+`getComputedStyle` and reading what the page would have painted. Two things are
+worth pinning there: that every tag in a category resolves to one colour and
+that the categories resolve to different ones — in **both** schemes, since each
+has its own palette. Read the hexes out of the stylesheet rather than copying
+them into the check, or the check goes on passing after the palette changes.
 
 Whatever the change, confirm `public_speaking.json` still parses:
 
