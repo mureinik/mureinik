@@ -15,6 +15,15 @@
       --accent-2: #f77c6a;
       --accent-3: #6af7c0;
       --accent-4: #f7c26a;
+
+      /* One color per tag category, in the order public_speaking.json lists
+         them. They are numbered rather than named after the categories so that
+         renaming a category in the data cannot silently un-color it. */
+      --cat-1: #ff8a75;
+      --cat-2: #9d8cff;
+      --cat-3: #5fe3c0;
+      --cat-4: #f5c56a;
+      --cat-5: #ff8ad0;
     }
 
     @media (prefers-color-scheme: light) {
@@ -28,6 +37,15 @@
         --accent-2: #d1451b;
         --accent-3: #1a7e5f;
         --accent-4: #d4a000;
+
+        /* Darker mixes of the same five hues. No single color clears 4.5:1
+           against both #0f1117 and #ffffff - the two requirements exclude each
+           other - so each scheme gets its own palette, as the accents do. */
+        --cat-1: #c0392b;
+        --cat-2: #5b43c9;
+        --cat-3: #0f7a5f;
+        --cat-4: #8a6100;
+        --cat-5: #b02a7a;
       }
     }
 
@@ -83,6 +101,60 @@
       height: auto;
       display: block;
       margin: 0 auto;
+    }
+
+    /* The canvas cannot say what its colors mean, so the legend does. */
+    #wc-legend {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem 1.25rem;
+      margin: 1rem 0 0;
+      padding: 0;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    #wc-legend li {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* Each entry narrows the cloud to its own category, so it has to be a real
+       button: reachable by keyboard, and with its state in aria-pressed. */
+    #wc-legend button {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.2rem 0.5rem;
+      background: none;
+      border: 1px solid transparent;
+      border-radius: 4px;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+      transition: opacity 0.2s, border-color 0.2s, color 0.2s;
+    }
+
+    #wc-legend button:hover,
+    #wc-legend button[aria-pressed="true"] {
+      border-color: var(--border);
+      color: var(--text);
+    }
+
+    /* While one category is selected the others recede, so a cloud with five
+       words missing reads as filtered rather than broken. */
+    #wc-legend button.dimmed {
+      opacity: 0.45;
+    }
+
+    .wc-swatch {
+      width: 0.75rem;
+      height: 0.75rem;
+      border-radius: 2px;
+      flex-shrink: 0;
     }
 
     .sr-only {
@@ -431,6 +503,7 @@
   <section id="cloud-section">
     <h2>Topics &amp; Conferences</h2>
     <canvas id="wc-canvas" width="800" height="400"></canvas>
+    <ul id="wc-legend"></ul>
     <div id="wc-a11y" class="sr-only"></div>
   </section>
 
@@ -474,6 +547,7 @@
     let allTalks = [];
     let topicTags = new Set();
     let currentTopicFilter = null;
+    let currentCategoryFilter = null;
     let currentLanguageFilter = null;
     let currentConferenceFilter = null;
     let currentYearFilter = null;
@@ -526,28 +600,83 @@
       return weights;
     }
 
-    // The three accents that clear 4.5:1 against both --bg values. --accent-4 is
-    // a background fill everywhere else on this page rather than a text colour,
-    // and it does not survive the move: #d4a000 on the light scheme's white is
-    // 2.4:1, and the cloud's smallest words render at 12px.
-    const CLOUD_ACCENTS = ['--accent-1', '--accent-2', '--accent-3'];
+    // The cloud encodes two things at once: a word's size is its talk count, and
+    // its color is the category the tag belongs to. Color used to rank the
+    // count as well, which told you nothing the size had not already said.
+    //
+    // Categories are colored by their position in public_speaking.json, so the
+    // data decides both the grouping and the order. A sixth category with no
+    // color of its own, or a tag in none, falls back to the muted text color -
+    // the page keeps rendering, and scripts/check_tag_categories.js is what
+    // actually keeps the two halves of the JSON in step.
+    const CATEGORY_VARS = ['--cat-1', '--cat-2', '--cat-3', '--cat-4', '--cat-5'];
+    const UNCATEGORIZED_VAR = '--text-muted';
 
-    // Colour says what size cannot. Font size is linear in the talk count, so the
-    // one 15-talk tag dwarfs everything and the long tail is uniformly tiny;
-    // ranking colour on log(count) spreads that tail across the palette instead
-    // of flattening it into one bucket. Equal counts always get the same accent.
+    let categoryOfTag = new Map();
+    let varOfCategory = new Map();
+
+    function indexCategories(tagCategories) {
+      categoryOfTag = new Map();
+      varOfCategory = new Map();
+
+      Object.entries(tagCategories || {}).forEach(([category, tags], index) => {
+        varOfCategory.set(category, CATEGORY_VARS[index] || UNCATEGORIZED_VAR);
+        tags.forEach(tag => categoryOfTag.set(tag, category));
+      });
+    }
+
+    const varOfTag = (tag) =>
+      varOfCategory.get(categoryOfTag.get(tag)) || UNCATEGORIZED_VAR;
+
+    // Resolved to concrete colors here because a canvas cannot take a var().
+    // The legend can, which is why its swatches survive a color-scheme flip
+    // on their own while the canvas has to be repainted.
     function getTagColors(weights) {
-      const counts = weights.map(([, count]) => count);
-      const min = Math.log(Math.min(...counts));
-      const spread = Math.log(Math.max(...counts)) - min;
       const styles = getComputedStyle(document.documentElement);
+      return new Map(weights.map(([tag]) =>
+        [tag, styles.getPropertyValue(varOfTag(tag)).trim()]));
+    }
 
-      return new Map(weights.map(([tag, count]) => {
-        const rank = spread === 0 ? 1 : (Math.log(count) - min) / spread;
-        const accent = Math.min(CLOUD_ACCENTS.length - 1,
-          Math.floor((1 - rank) * CLOUD_ACCENTS.length));
-        return [tag, styles.getPropertyValue(CLOUD_ACCENTS[accent]).trim()];
-      }));
+    function renderLegend() {
+      const legend = document.getElementById('wc-legend');
+      legend.innerHTML = '';
+
+      varOfCategory.forEach((cssVar, category) => {
+        const item = document.createElement('li');
+        const btn = document.createElement('button');
+        const selected = category === currentCategoryFilter;
+
+        btn.type = 'button';
+        btn.setAttribute('aria-pressed', String(selected));
+        btn.classList.toggle('dimmed', currentCategoryFilter !== null && !selected);
+        btn.addEventListener('click', () => toggleCategory(category));
+
+        const swatch = document.createElement('span');
+        swatch.className = 'wc-swatch';
+        swatch.style.background = `var(${cssVar})`;
+        btn.appendChild(swatch);
+        btn.appendChild(document.createTextNode(category));
+
+        item.appendChild(btn);
+        legend.appendChild(item);
+      });
+    }
+
+    // Selecting a category narrows the cloud to its tags; selecting it again
+    // restores the rest. The talk list is deliberately left alone - clicking a
+    // word in the narrowed cloud is what filters the talks, as it always was.
+    function toggleCategory(category) {
+      currentCategoryFilter = currentCategoryFilter === category ? null : category;
+      renderLegend();
+      paintCloud();
+    }
+
+    // Every repaint goes through here - first load, resize, color-scheme flip
+    // and the legend - so none of them can quietly restore tags the viewer
+    // filtered out.
+    function paintCloud() {
+      renderCloud(buildTagWeights(allTalks).filter(([tag]) =>
+        !currentCategoryFilter || categoryOfTag.get(tag) === currentCategoryFilter));
     }
 
     function renderCloud(weights) {
@@ -573,11 +702,16 @@
       // Populate a11y buttons
       const a11yContainer = document.getElementById('wc-a11y');
       a11yContainer.innerHTML = '';
-      weights.forEach(([tag]) => {
+      // Color and size are both invisible here, so the label spells out what
+      // they encode: the category and the talk count.
+      weights.forEach(([tag, count]) => {
         const btn = document.createElement('button');
         btn.className = 'wc-tag-btn sr-only';
         btn.textContent = tag;
-        btn.setAttribute('aria-label', `Filter by ${tag}`);
+        const category = categoryOfTag.get(tag);
+        const talks = `${count} ${count === 1 ? 'talk' : 'talks'}`;
+        btn.setAttribute('aria-label',
+          `Filter by ${tag}${category ? `, ${category}` : ''}, ${talks}`);
         btn.addEventListener('click', () => filterByTopic(tag));
         a11yContainer.appendChild(btn);
       });
@@ -798,8 +932,10 @@
         // Sort by date descending
         allTalks.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-        const weights = buildTagWeights(allTalks);
-        renderCloud(weights);
+        indexCategories(data.tagCategories);
+        renderLegend();
+
+        paintCloud();
         renderYearChart(allTalks);
         renderTalkList(allTalks);
 
@@ -832,19 +968,14 @@
         let resizeTimeout;
         window.addEventListener('resize', () => {
           clearTimeout(resizeTimeout);
-          resizeTimeout = setTimeout(() => {
-            const weights = buildTagWeights(allTalks);
-            renderCloud(weights);
-          }, 300);
+          resizeTimeout = setTimeout(paintCloud, 300);
         });
 
-        // The cloud is pixels, not elements: its colours and background are read
+        // The cloud is pixels, not elements: its colors and background are read
         // out of the stylesheet once, at paint time, so a scheme flip with the
         // page open would otherwise leave the old palette on the canvas until
         // something else happened to repaint it.
-        window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', () => {
-          renderCloud(buildTagWeights(allTalks));
-        });
+        window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', paintCloud);
       } catch (error) {
         console.error('Failed to load talks:', error);
         document.getElementById('talk-list').innerHTML = '<li><p>Error loading talks data.</p></li>';
