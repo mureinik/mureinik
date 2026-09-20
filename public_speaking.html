@@ -473,12 +473,27 @@
         font-size: 0.7rem;
       }
 
+      /* Stacked as a column of label+control rows, the two controls start
+         wherever their own label ends - and the conference one, sized by the
+         longest name in it, ran off the screen. A two-column grid lines the
+         labels up with each other and the controls with each other, and
+         minmax(0, 1fr) is what stops a long option from pushing the control
+         past the right edge. The groups have to step out of the way with
+         display: contents, or each would be a grid item of its own and the
+         columns would be per-group again. */
       #filter-controls {
-        flex-direction: column;
-        align-items: stretch;
+        display: grid;
+        grid-template-columns: max-content minmax(0, 1fr);
+        gap: 0.75rem 0.5rem;
+        align-items: center;
+      }
+
+      .filter-group {
+        display: contents;
       }
 
       #filter-bar {
+        grid-column: 1 / -1;
         margin-left: 0;
         width: 100%;
         justify-content: space-between;
