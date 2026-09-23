@@ -4,7 +4,7 @@ Articles are listed in reverse chronological order.
 
 #### Authored
 
-- **[What I wish I knew about security when I started programming](https://www.synopsys.com/blogs/software-security/security-basics-for-developers/)**, Synopsys Application Security Blog, 26/08/2022
+- **[What I wish I knew about security when I started programming](https://www.blackduck.com/blog/security-basics-for-developers.html)**, Black Duck Software and  Application Security Blog, 26/08/2022
 - **[Application developers – your first line of defense](https://grcoutlook.com/application-developers-your-first-line-of-defense/)**, GRC Outlook, 21/03/2022
 - **[The helpful stranger and meaning of open source](https://opensource.com/life/14/12/the-meaning-of-open-source)**, Opensource.com, 19/12/2014
 
