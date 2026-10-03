@@ -1,0 +1,31 @@
+name: Claude Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+jobs:
+  claude-review:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+      - uses: anthropics/claude-code-action@v1.0.240
+        with:
+          anthropic_api_key: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            Review this pull request for bugs, security issues, and code quality.
+            Categorize findings as Blockers, Suggestions, or Nits.
+            Focus on correctness, error handling, and test coverage.
+            If this pull request upgrades a dependency, review the release
+            notes, and if there are useful new features there, open new issues
+            to use these features as appropriate.
+            Be concise — skip praise, surface problems.
+          claude_args: '--max-turns 10'
