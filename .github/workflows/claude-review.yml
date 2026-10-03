@@ -26,5 +26,5 @@ jobs:
             Focus on correctness, error handling, and test coverage.
             Be concise — skip praise, surface problems.
           claude_args: >-
-            --max-turns 10
+            --max-turns 30
             --allowedTools "mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*)"
