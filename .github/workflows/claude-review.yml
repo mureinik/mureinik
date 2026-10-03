@@ -24,8 +24,5 @@ jobs:
             Review this pull request for bugs, security issues, and code quality.
             Categorize findings as Blockers, Suggestions, or Nits.
             Focus on correctness, error handling, and test coverage.
-            If this pull request upgrades a dependency, review the release
-            notes, and if there are useful new features there, open new issues
-            to use these features as appropriate.
             Be concise — skip praise, surface problems.
           claude_args: '--max-turns 10'
