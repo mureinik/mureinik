@@ -3,3 +3,13 @@
 # site.title as a header on the home page, where it would otherwise default
 # to the repository name.
 title: Allon Mureinik
+
+# public_speaking.md would otherwise render to public_speaking.html, the same
+# path as the hand-written styled page, which wins and leaves the README's
+# "legacy markdown" link pointing at the styled page. A separate permalink
+# publishes both; jekyll-relative-links points the README link at it.
+defaults:
+  - scope:
+      path: public_speaking.md
+    values:
+      permalink: /public_speaking_legacy.html
