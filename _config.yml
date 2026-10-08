@@ -1,0 +1,5 @@
+# GitHub Pages derives each page's title from its first heading. Matching
+# README.md's "### Allon Mureinik" here stops the theme from rendering
+# site.title as a header on the home page, where it would otherwise default
+# to the repository name.
+title: Allon Mureinik
