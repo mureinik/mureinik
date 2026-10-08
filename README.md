@@ -11,7 +11,7 @@ Passionate about open source, automating code quality and team building, not nec
 ## What else have I been up to?
 
 - [GitHub](https://github.com/mureinik)
-- [Twitter](https://twitter.com/mureinik)
+- [X (Twitter)](https://x.com/mureinik)
 - [LinkedIn](https://www.linkedin.com/in/mureinik/)
 - [SlideShare](https://www.slideshare.net/AllonMureinik)
 - [Public Speaking](https://mureinik.github.io/mureinik/public_speaking.html) ([legacy markdown](./public_speaking.md))
