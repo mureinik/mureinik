@@ -41,7 +41,7 @@ jobs:
     steps:
       - uses: actions/checkout@v7.0.1
 
-      - uses: actions/setup-node@v7.0.0
+      - uses: actions/setup-node@v7.1.0
         with:
           node-version-file: scripts/package.json
 
@@ -59,7 +59,7 @@ jobs:
 
       # Same pin the other workflows read. There is no "npm ci" step: the script
       # uses the built-in fetch and declares no dependencies.
-      - uses: actions/setup-node@v7.0.0
+      - uses: actions/setup-node@v7.1.0
         with:
           node-version-file: scripts/package.json
 
