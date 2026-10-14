@@ -40,7 +40,7 @@ jobs:
 
       # Paths here are workspace-relative, so they carry the scripts/ prefix
       # despite the working-directory above.
-      - uses: actions/setup-node@v7.0.0
+      - uses: actions/setup-node@v7.1.0
         with:
           node-version-file: scripts/package.json
           cache: npm
