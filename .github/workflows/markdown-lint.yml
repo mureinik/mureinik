@@ -30,6 +30,6 @@ jobs:
 
       # The action bundles markdownlint-cli2 and picks up the config from the
       # repo root on its own.
-      - uses: DavidAnson/markdownlint-cli2-action@v24.2.0
+      - uses: DavidAnson/markdownlint-cli2-action@v25.0.0
         with:
           globs: '**/*.md'
