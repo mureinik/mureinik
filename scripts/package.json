@@ -26,6 +26,6 @@
     "@eslint/js": "10.0.1",
     "eslint": "10.14.0",
     "eslint-plugin-n": "18.5.0",
-    "html-validate": "11.19.0"
+    "html-validate": "11.21.0"
   }
 }
